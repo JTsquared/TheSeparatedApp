@@ -1,0 +1,92 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - LostChildApp</title>
+
+    <environment include="Development">
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="~/css/site.css" />
+        <link rel="stylesheet" href="~/lib/font-awesome/dist/css/font-awesome.css" />
+        <link rel="stylesheet" href="~/css/bootstrap-overrides.css" />
+    </environment>
+    <environment exclude="Development">
+        <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/4.3.1/css/bootstrap.min.css"
+              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+        <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+    </environment>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark ml-3 mr-3">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand d-flex flex-fill" href="#">
+            <img src="~/images/safari-pinned-tab.svg" width="50" height="50" class="d-inline-block align-top" alt="">
+            <img src="~/images/generated.svg" width="100" height="50" class="d-inline-block align-top" alt="" />
+        </a>
+        <div class="collapse navbar-collapse mr-lg-5" id="navbarNav">
+            <ul class="navbar-nav mr-lg-5">
+                <li class="nav-item px-2 h5 active">
+                    <a class="nav-link" asp-action="Index" asp-controller="Home">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item px-2 h5">
+                    <a class="nav-link" href="#">Report Missing</a>
+                </li>
+                <li class="nav-item px-2 h5">
+                    <a class="nav-link" href="#">Sign-up</a>
+                </li>
+                <li class="nav-item px-2 h5">
+                    <a class="nav-link" asp-action="Contact" asp-controller="Home">Contact Us</a>
+                </li>
+            </ul>
+        </div>
+        <ul class="nav navbar-nav flex-row justify-content-md-center justify-content-start flex-nowrap">
+            <li class="nav-item px-2 h5"><a class="nav-link" asp-action="Login" asp-controller="Login">Login</a></li>
+        </ul>
+    </nav>
+    <div class="navbar navbar-expand mx-3">
+        <ul class="nav navbar-nav ml-auto">
+            <li class="nav-item px-2 h5">
+                <div class="nav-item px-1 h4"><a class="" href=""><i class="fa fa-facebook"></i></a></div>
+            </li>
+            <li class="nav-item px-2 h5">
+                <div class="nav-item px-1 h4"><a class="" href=""><i class="fa fa-twitter"></i></a> </div>
+            </li>
+        </ul>
+    </div>
+
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; 2019 - Seperated</p>
+        </footer>
+    </div>
+
+    <environment include="Development">
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"
+                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+                asp-fallback-test="window.jQuery"
+                crossorigin="anonymous"
+                integrity="sha384-K+ctZQ+LL8q6tP7I94W+qzQsfRV2a+AfHIi9k8z8l9ggpc8X+Ytst4yBo/hH+8Fk">
+        </script>
+        <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/4.3.1/bootstrap.min.js"
+                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
+                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
+                crossorigin="anonymous"
+                integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa">
+        </script>
+        <script src="~/js/site.min.js" asp-append-version="true"></script>
+    </environment>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

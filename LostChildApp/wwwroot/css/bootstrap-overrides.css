@@ -1,0 +1,60 @@
+﻿.nav-item {
+    margin-top: 6px;
+}
+
+.nav-item-color {
+    color: #6c757d;
+    background-color: #fff;
+    border-color: #dee2e6 #dee2e6 #fff;
+}
+
+.container-purple {
+    background-image: linear-gradient(to top right, rgba(56, 3, 103), white);
+}
+
+.color-purple {
+    color: #fff;
+    background-color: #440068;
+    border-color: #440068;
+}
+
+.color-purple:hover {
+    color: #fff;
+    background-color: #280146;
+    border-color: #280146
+}
+
+.color-login {
+    color: black;
+    background-color: #5b3274;
+    border-color: #ff0000;
+}
+
+.color-facebook-btn {
+    color: #fff;
+    background-color: #30399c;
+}
+
+.color-facebook-btn:hover {
+    color: #fff;
+    background-color: #28308b;
+}
+
+.color-google-btn {
+    color: #fff;
+    background-color: #de4125;
+}
+
+.color-google-btn:hover {
+    color: #fff;
+    background-color: #d13d23;
+}
+
+.color-dark-link {
+    color: #19226b;
+    font-weight: 500;
+}
+
+.color-dark-link:hover {
+    color: #020b56;
+}
