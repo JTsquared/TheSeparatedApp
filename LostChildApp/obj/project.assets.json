@@ -2923,6 +2923,9 @@
           "lib/netstandard2.0/NWebsec.AspNetCore.Mvc.TagHelpers.dll": {}
         }
       },
+      "popper.js/1.14.3": {
+        "type": "package"
+      },
       "Remotion.Linq/2.1.1": {
         "type": "package",
         "dependencies": {
@@ -8497,6 +8500,43 @@
         "nwebsec.aspnetcore.mvc.taghelpers.nuspec"
       ]
     },
+    "popper.js/1.14.3": {
+      "sha512": "d8LyFd0qc+arQUImKHnp86GQjRtrh3/fqHklxjNjRF2tdDhvTVG6Q858k21LPfnXdirrhz5t/ZcAh3tZ7iHQxg==",
+      "type": "package",
+      "path": "popper.js/1.14.3",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "content/Scripts/README.md",
+        "content/Scripts/esm/popper-utils.js",
+        "content/Scripts/esm/popper-utils.js.map",
+        "content/Scripts/esm/popper-utils.min.js",
+        "content/Scripts/esm/popper-utils.min.js.map",
+        "content/Scripts/esm/popper.js",
+        "content/Scripts/esm/popper.js.map",
+        "content/Scripts/esm/popper.min.js",
+        "content/Scripts/esm/popper.min.js.map",
+        "content/Scripts/index.d.ts",
+        "content/Scripts/popper-utils.js",
+        "content/Scripts/popper-utils.js.map",
+        "content/Scripts/popper-utils.min.js",
+        "content/Scripts/popper-utils.min.js.map",
+        "content/Scripts/popper.js",
+        "content/Scripts/popper.js.map",
+        "content/Scripts/popper.min.js",
+        "content/Scripts/popper.min.js.map",
+        "content/Scripts/umd/popper-utils.js",
+        "content/Scripts/umd/popper-utils.js.map",
+        "content/Scripts/umd/popper-utils.min.js",
+        "content/Scripts/umd/popper-utils.min.js.map",
+        "content/Scripts/umd/popper.js",
+        "content/Scripts/umd/popper.js.map",
+        "content/Scripts/umd/popper.min.js",
+        "content/Scripts/umd/popper.min.js.map",
+        "popper.js.1.14.3.nupkg.sha512",
+        "popper.js.nuspec"
+      ]
+    },
     "Remotion.Linq/2.1.1": {
       "sha512": "IJn0BqkvwEDpP+2qjvci7n4/a9f7DhKESLWb2/uG4xQh3rTkGTBUz69bI4IivCoKkTFAqjXxYDZw2K/npohjsw==",
       "type": "package",
@@ -13811,7 +13851,8 @@
       "Microsoft.NETCore.App >= 2.0.0",
       "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 2.0.4",
       "WebEssentials.AspNetCore.PWA >= 1.0.59",
-      "font-awesome >= 4.7.0"
+      "font-awesome >= 4.7.0",
+      "popper.js >= 1.14.3"
     ]
   },
   "packageFolders": {
@@ -13875,6 +13916,10 @@
           "font-awesome": {
             "target": "Package",
             "version": "[4.7.0, )"
+          },
+          "popper.js": {
+            "target": "Package",
+            "version": "[1.14.3, )"
           }
         },
         "imports": [

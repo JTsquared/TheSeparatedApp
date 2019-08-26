@@ -24,6 +24,28 @@
     border-color: #280146
 }
 
+.color-dark-purple {
+    color: #fff;
+    background-color: #280146;
+    border-color: #280146
+}
+
+.nav-pills .nav-link.active,
+.nav-pills .show > .nav-link {
+    color: #fff;
+    background-color: #280146;
+}
+
+navbar.active {
+    color: #fff;
+    background-color: #280146;
+    border-color: #280146
+}
+
+tab-pane.active {
+    display:block;
+}
+
 .color-login {
     color: black;
     background-color: #5b3274;
@@ -57,4 +79,34 @@
 
 .color-dark-link:hover {
     color: #020b56;
+}
+
+.tab-stretch {
+    width: 100%;
+}
+
+.fa-8x {
+    font-size: 8em;
+}
+
+.list-group-item {
+    position: relative;
+    display: block;
+    padding: 1rem 1.25rem;
+    background-color: #fff;
+    margin-bottom: 0px;
+    border: none;
+}
+
+.panel-title {
+    display: inline;
+    font-weight: bold;
+}
+
+.checkbox.pull-right {
+    margin: 0;
+}
+
+.pl-ziro {
+    padding-left: 0px;
 }
