@@ -61,10 +61,6 @@
             "font-awesome": {
               "target": "Package",
               "version": "[4.7.0, )"
-            },
-            "popper.js": {
-              "target": "Package",
-              "version": "[1.14.3, )"
             }
           },
           "imports": [

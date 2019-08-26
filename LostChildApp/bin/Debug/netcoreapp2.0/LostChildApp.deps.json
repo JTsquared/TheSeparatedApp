@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v2.0",
-    "signature": "3cc975ea9480052ef3de5e6452ff8dff7198d117"
+    "signature": "22d84969358243ea2253a80fae6db62841e1d6e1"
   },
   "compilationOptions": {
     "defines": [
@@ -27,8 +27,7 @@
           "Microsoft.NETCore.App": "2.0.0",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "2.0.4",
           "WebEssentials.AspNetCore.PWA": "1.0.59",
-          "font-awesome": "4.7.0",
-          "popper.js": "1.14.3"
+          "font-awesome": "4.7.0"
         },
         "runtime": {
           "LostChildApp.dll": {}
@@ -2541,7 +2540,6 @@
           "lib/netstandard2.0/NWebsec.AspNetCore.Mvc.TagHelpers.dll": {}
         }
       },
-      "popper.js/1.14.3": {},
       "Remotion.Linq/2.1.1": {
         "dependencies": {
           "System.Collections": "4.3.0",
@@ -5547,13 +5545,6 @@
       "sha512": "sha512-cIO4DjKEgIBOec0cTvHHCKmF3w8zi4YxHtdRGa/IG36295mECTu/a10o10BFMSrYNukQxviWPj4JGS0zL6D4DA==",
       "path": "nwebsec.aspnetcore.mvc.taghelpers/2.0.0",
       "hashPath": "nwebsec.aspnetcore.mvc.taghelpers.2.0.0.nupkg.sha512"
-    },
-    "popper.js/1.14.3": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-d8LyFd0qc+arQUImKHnp86GQjRtrh3/fqHklxjNjRF2tdDhvTVG6Q858k21LPfnXdirrhz5t/ZcAh3tZ7iHQxg==",
-      "path": "popper.js/1.14.3",
-      "hashPath": "popper.js.1.14.3.nupkg.sha512"
     },
     "Remotion.Linq/2.1.1": {
       "type": "package",
