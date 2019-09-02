@@ -24,7 +24,7 @@ namespace LostChildApp.Controllers
 
         public IActionResult Contact()
         {
-            ViewData["Message"] = "Your contact page.";
+            ViewData["Message"] = "Contact The Separated App Team";
 
             return View();
         }

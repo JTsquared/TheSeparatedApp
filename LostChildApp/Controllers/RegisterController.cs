@@ -8,7 +8,7 @@ namespace LostChildApp.Controllers
 {
     public class RegisterController : Controller
     {
-        public IActionResult Register()
+        public IActionResult Index()
         {
             return View();
         }

@@ -107,6 +107,30 @@ tab-pane.active {
     margin: 0;
 }
 
-.pl-ziro {
-    padding-left: 0px;
+.text-disclaimer {
+    color: red;
+    font-weight: bold;
+}
+
+.btn-block {
+    min-height: 6em;
+    height: auto;
+}
+
+.bg-light {
+    margin: .05em;
+}
+
+.card {
+    margin-bottom: 2em;
+    margin-top: 2em;
+}
+
+.btn-pay {
+    width: 50%;
+    margin-bottom: 0em;
+}
+
+html {
+    overflow-y: scroll;
 }

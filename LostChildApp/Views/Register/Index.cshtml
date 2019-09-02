@@ -3,24 +3,6 @@
     ViewData["Title"] = "Register";
 }
 
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-    <environment include="Development">
-        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
-        <link rel="stylesheet" href="~/css/site.css" />
-        <link rel="stylesheet" href="~/lib/font-awesome/dist/css/font-awesome.css" />
-        <link rel="stylesheet" href="~/css/bootstrap-overrides.css" />
-    </environment>
-    <environment exclude="Development">
-        <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/4.3.1/css/bootstrap.min.css"
-              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
-              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
-        <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
-    </environment>
-</head>
-
 <div class="container container-purple pb-3">
     <h3 class="text-center pt-3 pb-2">Register</h3>
     <ul class="nav nav-pills nav-fill">
@@ -61,8 +43,10 @@
                 <div class="col-md-4 mr-2">
                     <label for="image">Upload Picture</label>
                     <div class="mb-4">
-                        <i id="image" class="fa fa-arrow-circle-up fa-8x img-thumbnail"></i>
+                        <input class="uploadImg" id="uploadFile" style="display: none;" type="file" name="imageFile" required />
+                        <a class="fa fa-arrow-circle-up fa-8x img-thumbnail" onclick="UploadImage()"></a>
                     </div>
+
                     <div class="form-group">
                         <label for="name">Dependent's Name</label>
                         <input type="text" class="form-control" id="name" />
@@ -160,7 +144,7 @@
                             </div>
                         </form>
                         <br />
-                        <a href="http://www.jquery2dotnet.com" class="btn btn-success btn-lg btn-block" role="button">Pay</a>
+                        <a href="http://www.jquery2dotnet.com" class="btn btn-success btn-lg btn-pay" role="button">Pay</a>
                     </div>
                 </div>
                 <div class="col-sm-6 text-center pt-5 d-none d-md-block">
@@ -170,4 +154,3 @@
         </div>
     </div>
 </div>
-

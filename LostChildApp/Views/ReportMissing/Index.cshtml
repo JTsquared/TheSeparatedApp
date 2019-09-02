@@ -1,0 +1,103 @@
+﻿
+@{
+    ViewData["Title"] = "ReportMissing";
+}
+<div class="container-fluid container-purple">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="color-dark-purple mx-n3 px-4 py-4 text-center">
+                <h2>
+                    What do you want to report?
+                </h2>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid container-purple pb-4">
+    <div id="collapseParent" class="">
+        <div class="row pt-4">
+            <div class="col-sm-1 col-md-1 d-none d-lg-block d-md-none"></div>
+            <div class="col-sm-12 col-md-6 col-lg-4">
+                <button class="btn btn-lg btn-block btn-primary" type="button" data-toggle="collapse" data-target="#foundDependentReport" aria-expanded="false" aria-controls="foundDependentReport">
+                    I am with a dependent that has been separated from their family
+                </button>
+            </div>
+            <div class="col-md-7 col-lg-2 my-4">
+                <h4 class="text-center">
+                    Or...
+                </h4>
+            </div>
+            <div class="col-sm-12 col-md-6 col-lg-4">
+                <button class=" btn btn-lg btn-block btn-primary " type="button" data-toggle="collapse" data-target="#myMissingFamilyReport" aria-expanded="false" aria-controls="myMissingFamilyReport">
+                    I have been separated from my child/dependent
+                </button>
+            </div>
+            <div class="col-sm-0 col-md-1"></div>
+        </div>
+        <div class="collapse" id="foundDependentReport" data-parent="#collapseParent">
+            <div class="card card-body text-disclaimer">
+                Disclaimer: IMPORTANT - This service should not be used in place of or as a substitue for police involvement. Please use your discretion and if the separated
+                individual has been missing for an extended period of time or if you believe that the child/dependent may have been involved in a kidnapping please call the police immediately.
+                This service is intended to aid family's who have been separated from a dependent for a brief period of time and whom are assumed to be in relatively close proximity.
+                If you are with a child/dependent that has been separated from their family at an event where there is a security detail we HIGHLY recommend that you also involve them as soon as possible.
+            </div>
+            <div class="row bg-light">
+                <div class="col-md-12">
+                    <label for="image">Upload Picture</label>
+                    <div class="mb-4">
+                        <input class="uploadImg" id="reportUploadImg" style="display: none;" type="file" name="imageFile" required />
+                        <a id="image" class="fa fa-arrow-circle-up fa-8x img-thumbnail" onclick="UploadImage()"></a>
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Your Phone Number*</label>
+                        <input type="tel" class="form-control" id="dependentsName" />
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Child/Dependent's Name (Optional)</label>
+                        <input type="text" class="form-control" id="dependentsName" />
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Your Name (Optional)</label>
+                        <input type="text" class="form-control" id="reporterName" />
+                    </div>
+                    <div class="form-group">
+                        <label for="useMobileLocation" class="form-check-label">Can we use your mobile location?</label>
+                        <input type="checkbox" class="form-check-inline" id="useMobileLocation"/>
+                    </div>
+                    <button type="submit" class="btn px-5 color-dark-purple my-4">Submit</button>
+                </div>
+            </div>
+        </div>
+        <div class="collapse" id="myMissingFamilyReport" data-parent="#collapseParent">
+            <div class="card card-body text-disclaimer">
+                Disclaimer: IMPORTANT - This service should not be used in place of or as a substitue for police involvement. Please use your discretion and if the separated
+                individual has been missing for an extended period of time or if you believe that the child/dependent may have been involved in a kidnapping please call the police immediately.
+                This service is intended to aid family's who have been separated from a dependent for a brief period of time and whom are assumed to be in relatively close proximity.
+                While The Separated App company serves to help families locate separated dependents in close proximity we cannot guarantee that the child will be found.
+            </div>
+            <div class="row bg-light">
+                <div class="col-md-12">
+                    <label for="image">Upload Picture</label>
+                    <div class="mb-4">
+                        <input class="uploadImg" id="reportUploadImg2" style="display: none;" type="file" name="imageFile" required />
+                        <a id="image" class="fa fa-arrow-circle-up fa-8x img-thumbnail" onclick="UploadImage()"></a>
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Your Phone Number*</label>
+                        <input type="tel" class="form-control" id="dependentsName" />
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Child/Dependent's Name (Optional)</label>
+                        <input type="text" class="form-control" id="dependentsName" />
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Your Name (Optional)</label>
+                        <input type="text" class="form-control" id="reporterName" />
+                    </div>
+                    <button type="submit" class="btn px-5 color-dark-purple my-4">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
