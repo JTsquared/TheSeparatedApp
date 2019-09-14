@@ -1,4 +1,4 @@
-﻿
+﻿ 
 @{
     ViewData["Title"] = "Register";
 }
@@ -11,146 +11,149 @@
         <li class="nav-item"><a class="nav-link py-3 color-purple" href="#menu3" data-toggle="tab">Payment</a></li>
     </ul>
     <br>
-    <div class="tab-content">
-        <div id="menu1" class="tab-pane active">
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="firstName">First Name:</label>
-                        <input type="text" class="form-control" id="firstName" />
+    @using (Html.BeginForm("Index", "ReportMissing", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <div class="tab-content">
+            <div id="menu1" class="tab-pane active">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="firstName">First Name:</label>
+                            <input type="text" class="form-control" id="firstName" />
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName">Last Name:</label>
+                            <input type="text" class="form-control" id="lastName" />
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Mobile Phone:</label>
+                            <input type="text" class="form-control" id="phone" />
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email:</label>
+                            <input type="email" class="form-control" id="email" />
+                        </div>
+                        <button type="submit" class="btn px-5 color-dark-purple my-4">Next Step</button>
                     </div>
-                    <div class="form-group">
-                        <label for="lastName">Last Name:</label>
-                        <input type="text" class="form-control" id="lastName" />
+                    <div class="col-sm-6 text-center pt-5 d-none d-md-block">
+                        <img src="~/images/Step1.png" />
                     </div>
-                    <div class="form-group">
-                        <label for="phone">Mobile Phone:</label>
-                        <input type="text" class="form-control" id="phone" />
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email:</label>
-                        <input type="email" class="form-control" id="email" />
-                    </div>
-                    <button type="submit" class="btn px-5 color-dark-purple my-4">Next Step</button>
-                </div>
-                <div class="col-sm-6 text-center pt-5 d-none d-md-block">
-                    <img src="~/images/Step1.png" />
                 </div>
             </div>
-        </div>
-        <div id="menu2" class="tab-pane">
-            <div class="row">
-                <div class="col-md-4 mr-2">
-                    <label for="image">Upload Picture</label>
-                    <div class="mb-4">
-                        <input class="uploadImg" id="uploadFile" style="display: none;" type="file" name="imageFile" required />
-                        <a class="fa fa-arrow-circle-up fa-8x img-thumbnail" onclick="UploadImage()"></a>
-                    </div>
+            <div id="menu2" class="tab-pane">
+                <div class="row">
+                    <div class="col-md-4 mr-2">
+                        <label for="image">Upload Picture</label>
+                        <div class="mb-4">
+                            <input class="uploadImg" id="uploadFile" style="display: none;" type="file" name="imageFile" accept="image/*" required />
+                            <a class="fa fa-arrow-circle-up fa-8x img-thumbnail" onclick="UploadImage()"></a>
+                        </div>
 
-                    <div class="form-group">
-                        <label for="name">Dependent's Name</label>
-                        <input type="text" class="form-control" id="name" />
+                        <div class="form-group">
+                            <label for="name">Dependent's Name</label>
+                            <input type="text" class="form-control" id="name" />
+                        </div>
+                        <div class="form-group">
+                            <label for="relation">Family Relation</label>
+                            <select class="input-group-sm form-control">
+                                <option value="Member">Member/Self</option>
+                                <option value="Child">Child</option>
+                                <option value="Pet">Pet</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="relation">Family Relation</label>
-                        <select class="input-group-sm form-control">
-                            <option value="Member">Member/Self</option>
-                            <option value="Child">Child</option>
-                            <option value="Pet">Pet</option>
-                            <option value="Other">Other</option>
-                        </select>
+                    <div class="col-md-4 text-center pt-5 ml-5 d-none d-md-block d-lg-none">
+                        <img class="ml-n4" src="~/images/Step2.png" />
+                    </div>
+                    <div class="col-lg-4">
+                        <label for="fammilyMemberList">My Family</label>
+                        <ul id="familyMemberList" class="list-group">
+                            <li class="list-group-item"></li>
+                            <li class="list-group-item"></li>
+                            <li class="list-group-item"></li>
+                            <li class="list-group-item"></li>
+                            <li class="list-group-item"></li>
+                            <li class="list-group-item"></li>
+                            <li class="list-group-item"></li>
+                            <li class="list-group-item"></li>
+                            <li class="list-group-item"></li>
+                            <li class="list-group-item"></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-4 text-center pt-5 ml-n2 d-none d-lg-block">
+                        <img class="ml-n4" src="~/images/Step2.png" />
                     </div>
                 </div>
-                <div class="col-md-4 text-center pt-5 ml-5 d-none d-md-block d-lg-none">
-                    <img class="ml-n4" src="~/images/Step2.png" />
-                </div>
-                <div class="col-lg-4">
-                    <label for="fammilyMemberList">My Family</label>
-                    <ul id="familyMemberList" class="list-group">
-                        <li class="list-group-item"></li>
-                        <li class="list-group-item"></li>
-                        <li class="list-group-item"></li>
-                        <li class="list-group-item"></li>
-                        <li class="list-group-item"></li>
-                        <li class="list-group-item"></li>
-                        <li class="list-group-item"></li>
-                        <li class="list-group-item"></li>
-                        <li class="list-group-item"></li>
-                        <li class="list-group-item"></li>
-                    </ul>
-                </div>
-                <div class="col-md-4 text-center pt-5 ml-n2 d-none d-lg-block">
-                    <img class="ml-n4" src="~/images/Step2.png" />
+                <div class="row">
+                    <div class="col-md-8">
+                        <button id="addDependentBtn" type="button" class="btn px-3 color-dark-purple my-4 mr-2">Add Dependent</button>
+                        <button id="deleteDependentBtn" type="button" class="btn px-3 color-dark-purple my-4 mr-n2 float-md-right">Remove Dependent</button>
+                    </div>
+                    <div class="col-md-4">
+                        <button id="finishFamilyBtn" type="submit" class="btn px-3 color-dark-purple mt-4 float-md-right">Next Step</button>
+                    </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-8">
-                    <button id="addDependentBtn" type="button" class="btn px-3 color-dark-purple my-4 mr-2">Add Dependent</button>
-                    <button id="deleteDependentBtn" type="button" class="btn px-3 color-dark-purple my-4 mr-n2 float-md-right">Remove Dependent</button>
-                </div>
-                <div class="col-md-4">
-                    <button id="finishFamilyBtn" type="submit" class="btn px-3 color-dark-purple mt-4 float-md-right">Next Step</button>
-                </div>
-            </div>
-        </div>
-        <div id="menu3" class="tab-pane">
-            <div class="row">
-                <div class="col-md-6">
-                    <h3 class="panel-title">
-                        Payment Details
-                    </h3>
-                    <div class="checkbox pull-right">
-                        <label>
-                            <input type="checkbox" />
-                            Remember
-                        </label>
-                    </div>
-                    <div class="panel-body">
-                        <form role="form">
-                            <div class="form-group">
-                                <label for="cardNumber">
-                                    CARD NUMBER
-                                </label>
-                                <div class="input-group">
-                                    <input type="text" class="form-control" id="cardNumber" placeholder="Valid Card Number"
-                                           required autofocus />
-                                    <span class="input-group-text"><span class="fa fa-lock"></span></span>
+            <div id="menu3" class="tab-pane">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h3 class="panel-title">
+                            Payment Details
+                        </h3>
+                        <div class="checkbox pull-right">
+                            <label>
+                                <input type="checkbox" />
+                                Remember
+                            </label>
+                        </div>
+                        <div class="panel-body">
+                            <form role="form">
+                                <div class="form-group">
+                                    <label for="cardNumber">
+                                        CARD NUMBER
+                                    </label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" id="cardNumber" placeholder="Valid Card Number"
+                                               required autofocus />
+                                        <span class="input-group-text"><span class="fa fa-lock"></span></span>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-xs-7 col-md-7">
-                                    <div class="form-group">
-                                        <label for="expityMonth">
-                                            EXPIRY DATE
-                                        </label>
-                                        <div class="row">
-                                            <div class="col-xs-6 col-lg-6">
-                                                <input type="text" class="form-control" id="expityMonth" placeholder="MM" required />
-                                            </div>
-                                            <div class="col-xs-6 col-lg-6">
-                                                <input type="text" class="form-control" id="expityYear" placeholder="YY" required />
+                                <div class="row">
+                                    <div class="col-xs-7 col-md-7">
+                                        <div class="form-group">
+                                            <label for="expityMonth">
+                                                EXPIRY DATE
+                                            </label>
+                                            <div class="row">
+                                                <div class="col-xs-6 col-lg-6">
+                                                    <input type="text" class="form-control" id="expityMonth" placeholder="MM" required />
+                                                </div>
+                                                <div class="col-xs-6 col-lg-6">
+                                                    <input type="text" class="form-control" id="expityYear" placeholder="YY" required />
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-xs-5 col-md-5">
-                                    <div class="form-group">
-                                        <label for="cvCode">
-                                            CV CODE
-                                        </label>
-                                        <input type="password" class="form-control" id="cvCode" placeholder="CV" required />
+                                    <div class="col-xs-5 col-md-5">
+                                        <div class="form-group">
+                                            <label for="cvCode">
+                                                CV CODE
+                                            </label>
+                                            <input type="password" class="form-control" id="cvCode" placeholder="CV" required />
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </form>
-                        <br />
-                        <a href="http://www.jquery2dotnet.com" class="btn btn-success btn-lg btn-pay" role="button">Pay</a>
+                            </form>
+                            <br />
+                            <a href="http://www.jquery2dotnet.com" class="btn btn-success btn-lg btn-pay" role="button">Pay</a>
+                        </div>
                     </div>
-                </div>
-                <div class="col-sm-6 text-center pt-5 d-none d-md-block">
-                    <img src="~/images/Step3.png" />
+                    <div class="col-sm-6 text-center pt-5 d-none d-md-block">
+                        <img src="~/images/Step3.png" />
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    }
 </div>

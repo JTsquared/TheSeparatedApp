@@ -10,7 +10,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Queue;
 
-namespace LostChild
+namespace LostFamily
 {
     public class Program
     {

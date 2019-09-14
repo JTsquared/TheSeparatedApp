@@ -3,17 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace LostChild.Models
+namespace LostFamily.Models
 {
-    public class LostChildRepository : ILostChildRepository
+    public class LostChildRepository : ILostDependentRepository
     {
 
-        public LostChildAlert GetLostChildAlert()
+        public ReportMissingMsg GetLostChildAlert()
         {
             throw new NotImplementedException();
         }
 
-        public LostChildAlert SendLostChildAlert()
+        public ReportMissingMsg SendLostChildAlert()
         {
             throw new NotImplementedException();
         }

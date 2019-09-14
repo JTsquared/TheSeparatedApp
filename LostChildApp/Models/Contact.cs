@@ -1,37 +1,35 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace LostChild.Models
+namespace LostFamily.Models
 {
+    public enum ContactType { Family = 1, NonFamily }
+
     public class Contact : IContact
     {
-        private string phoneNumber;
-        private string firstName;
-        private string lastName;
-        private Location location;
+        [Required]
+        public string Name { get; set; }
+        [Required]
+        public string PhoneNumber { get; set; }
+        [Required]
+        public ContactType ContactType { get; set; }
 
-        public string PhoneNumber { get => phoneNumber; set => phoneNumber = value; }
-        public string FirstName { get => firstName; set => firstName = value; }
-        public string LastName { get => lastName; set => lastName = value; }
+        public Contact() { }
 
-        public Contact(string contactPhoneNumber)
+        public Contact(string contactPhoneNumber, ContactType contactType)
         {
-            phoneNumber = contactPhoneNumber;
+            PhoneNumber = contactPhoneNumber;
+            ContactType = contactType;
         }
 
-        public Contact(string contactPhoneNumber, Location contactLocation)
+        public Contact(string contactPhoneNumber, ContactType contactType, string contactName)
         {
-            phoneNumber = contactPhoneNumber;
-            location = contactLocation;
-        }
-
-        public Contact(string contactPhoneNumber, string contactFirstName, string contactLastName)
-        {
-            phoneNumber = contactPhoneNumber;
-            firstName = contactFirstName;
-            lastName = contactLastName;
+            PhoneNumber = contactPhoneNumber;
+            ContactType = contactType;
+            Name = contactName;
         }
     }
 }

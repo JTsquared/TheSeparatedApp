@@ -1,4 +1,4 @@
-﻿namespace LostChild.Models
+﻿namespace LostFamily.Models
 {
     public class Location
     {
