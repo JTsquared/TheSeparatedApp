@@ -3,21 +3,29 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using LostFamily.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Web;
+using LostChildApp.Models;
+using BusinessLayer.Models;
 
 namespace LostChildApp.Controllers
 {
     public class ReportMissingController : Controller
     {
         private readonly IHostingEnvironment hostingEnvironment;
+        private readonly IMessageQueue mq;
+        private readonly IImageService imageService;
+        private readonly IMobileHelper mobileHelper;
 
-        public ReportMissingController(IHostingEnvironment hostingEnvironment)
+        public ReportMissingController(IHostingEnvironment hostingEnvironment, IMessageQueue mq, IImageService imageService, IMobileHelper mobileHelper)
         {
             this.hostingEnvironment = hostingEnvironment;
+            this.mq = mq;
+            this.imageService = imageService;
+            this.mobileHelper = mobileHelper;
+            
         }
 
         public IActionResult Index()
@@ -26,30 +34,30 @@ namespace LostChildApp.Controllers
             return View(missingReport);
         }
 
-        [HttpPost]
-        public IActionResult SendMissingMsg(ReportMissingMsg model)
-        {
-            if (ModelState.IsValid)
-            {
-                //TODO:
-                //not sure if this code is needed. borrowed it from tutorial on saving images to database but the instructor had a separate viewmodel as the input for this IActionResult which he then used to populate a different model before
-                //saving to a database. Since I am using the model directly and not using a viewmodel as an intermediate step I might be able to skip this part and just use client-side and server-side validation to ensure data is there before
-                //sending to the queue.
-                string fileName = null;
-                if (model.DependentImage != null)
-                {
-                    string uploadFolder = Path.Combine(hostingEnvironment.WebRootPath, "uploadFolder");
-                    fileName = Guid.NewGuid().ToString() + "_" + model.DependentImage.FileName;
-                    string filePath = Path.Combine(uploadFolder, fileName);
-                    model.DependentImage.CopyTo(new FileStream(filePath, FileMode.Create));
-                }
+        //[HttpPost]
+        //public IActionResult SendMissingMsg(ReportMissingMsg model)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        //TODO:
+        //        //not sure if this code is needed. borrowed it from tutorial on saving images to database but the instructor had a separate viewmodel as the input for this IActionResult which he then used to populate a different model before
+        //        //saving to a database. Since I am using the model directly and not using a viewmodel as an intermediate step I might be able to skip this part and just use client-side and server-side validation to ensure data is there before
+        //        //sending to the queue.
+        //        string fileName = null;
+        //        if (model.DependentImage != null)
+        //        {
+        //            string uploadFolder = Path.Combine(hostingEnvironment.WebRootPath, "uploadFolder");
+        //            fileName = Guid.NewGuid().ToString() + "_" + model.DependentImage.FileName;
+        //            string filePath = Path.Combine(uploadFolder, fileName);
+        //            model.DependentImage.CopyTo(new FileStream(filePath, FileMode.Create));
+        //        }
 
-                //TODO:
-                //here is where I would add call to queue storage and submit ReportMissingMsg
-            }
+        //        //TODO:
+        //        //here is where I would add call to queue storage and submit ReportMissingMsg
+        //    }
 
-            return View();
-        }
+        //    return View();
+        //}
 
         [HttpPost]
         public IActionResult FamilyReport(ReportMissingMsg model, IFormFile imageFile)
@@ -95,70 +103,25 @@ namespace LostChildApp.Controllers
         {
             if (model != null)
             {
-
                 //search for existing reports in msg queue based on user proximity 
-                List<ReportMissingMsg> possibleMatches = PollMsgQueue(model.Reporter.ContactType, model.Location);
+                List<ReportMissingMsg> possibleMatches = mq.PollMsgQueue(model.Reporter.ContactType, model.Location);
 
                 if (possibleMatches.Count > 0)
                 {
-                    int imageMatchIndex = CompareDependentImages(model.DependentImage, possibleMatches.Select(queueResults => queueResults.DependentImage));
+                    int imageMatchIndex = imageService.CompareDependentImages(model.DependentImage, possibleMatches.Select(queueResults => queueResults.DependentImage));
                     if (imageMatchIndex >= 0)
                     {
                         ReportMissingMsg matchedReport = possibleMatches[imageMatchIndex];
-                        bool canSendReporterLocation = RequestToProvideLocation();
-                        SendMatchNotification(model, matchedReport, canSendReporterLocation);
-                        //OfferToCallReporter(matchedReport.Reporter.PhoneNumber);
-                        //RemoveQueueMsg();
+                        bool canSendReporterLocation = mobileHelper.RequestToProvideLocation();
+                        mobileHelper.SendMatchNotification(model, matchedReport, canSendReporterLocation);
+                        mobileHelper.OfferToCallReporter(matchedReport.Reporter.PhoneNumber);
+                        mq.RemoveQueueMsg(model, matchedReport);
                         return;
                     }
                 }
 
                 //if a match is not found add the message to the message queue and notify user that the report has been logged and that they will be notified when a match is found
                 //AddReportToQueue();
-
-            }
-        }
-
-        private List<ReportMissingMsg> PollMsgQueue(ContactType contactType, Location location)
-        {
-            List<ReportMissingMsg> queueResults = new List<ReportMissingMsg>();
-            ContactType searchContactType = contactType == ContactType.NonFamily ? ContactType.Family : ContactType.NonFamily;
-            //queueResults = MissingReportRepository.GetQueueMessages(searchContactType, location);
-            return queueResults;
-        }
-
-        private int CompareDependentImages(IFormFile dependentImage, IEnumerable<IFormFile> queuedImages)
-        {
-            //TODO: Send images to facial recognition service to determine if there is a match
-            int matchedImageIndex = -1;
-            bool isMatchFound = false;
-
-            for (int i = 0; i < queuedImages.Count(); i++)
-            {
-                //bool isMatchFound = FacialRecognitionService.CompareImages(dependentImage, queuedImages);
-                if (isMatchFound)
-                {
-                    matchedImageIndex = i;
-                    break;
-                }
-            }
-
-            return matchedImageIndex;
-        }
-
-        private bool RequestToProvideLocation()
-        {
-            //TODO: request permission from user to be able to send their location to the family so that they can locate them.
-            return false;
-        }
-
-        private void SendMatchNotification(ReportMissingMsg model, ReportMissingMsg matchedReport, bool canSendReporterLocation)
-        {
-            if(model.Reporter.ContactType == ContactType.NonFamily)
-            {
-                //TODO: use builder class to build notification message
-                string messageBody = notificationBuilder.BuildMessage(model, canSendReporterLocation);
-                bool notificationSent = SendNotification(messageBody, matchedReport.Reporter.PhoneNumber);
             }
         }
     }

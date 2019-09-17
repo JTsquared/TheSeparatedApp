@@ -1,4 +1,4 @@
-﻿namespace LostFamily.Models
+﻿namespace BusinessLayer.Models
 {
     public class Coordinates
     {

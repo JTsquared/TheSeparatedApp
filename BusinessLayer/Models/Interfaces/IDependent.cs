@@ -1,4 +1,4 @@
-﻿namespace LostFamily.Models
+﻿namespace BusinessLayer.Models
 {
     internal interface IDependent
     {

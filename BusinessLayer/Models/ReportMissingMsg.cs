@@ -1,7 +1,7 @@
 ﻿using LostChildApp.Models;
 using Microsoft.AspNetCore.Http;
 
-namespace LostFamily.Models
+namespace BusinessLayer.Models
 {
     public class ReportMissingMsg
     {

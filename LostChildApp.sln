@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.645
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29209.62
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LostChildApp", "LostChildApp\LostChildApp.csproj", "{B7857370-7061-4ED0-A9AD-5366E0AF023D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LostChildApp", "LostChildApp\LostChildApp.csproj", "{B7857370-7061-4ED0-A9AD-5366E0AF023D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusinessLayer", "BusinessLayer\BusinessLayer.csproj", "{957B1AFE-59D6-46F4-8836-8A6196810B4F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{B7857370-7061-4ED0-A9AD-5366E0AF023D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B7857370-7061-4ED0-A9AD-5366E0AF023D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B7857370-7061-4ED0-A9AD-5366E0AF023D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{957B1AFE-59D6-46F4-8836-8A6196810B4F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{957B1AFE-59D6-46F4-8836-8A6196810B4F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{957B1AFE-59D6-46F4-8836-8A6196810B4F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{957B1AFE-59D6-46F4-8836-8A6196810B4F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace LostFamily.Models
+namespace BusinessLayer.Models
 {
     public enum ContactType { Family = 1, NonFamily }
 

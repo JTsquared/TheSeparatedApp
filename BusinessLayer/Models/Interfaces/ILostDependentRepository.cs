@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace LostFamily.Models
+namespace BusinessLayer.Models
 {
     public interface ILostDependentRepository
     {
