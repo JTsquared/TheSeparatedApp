@@ -63,8 +63,11 @@ namespace LostChildApp.Controllers
         public IActionResult FamilyReport(ReportMissingMsg model, IFormFile imageFile)
         {
             model.DependentImage = imageFile;
-            model.DependentImgURL = imageFile.FileName;
+            //model.DependentImgURL = imageFile.FileName;
             model.Reporter.ContactType = ContactType.Family;
+
+            var uri = imageService.SaveToBlobStorage(imageFile);
+
             return View();
         }
 
