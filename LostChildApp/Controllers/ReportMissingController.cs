@@ -60,13 +60,13 @@ namespace LostChildApp.Controllers
         //}
 
         [HttpPost]
-        public IActionResult FamilyReport(ReportMissingMsg model, IFormFile imageFile)
+        public IActionResult FamilyReport(ReportMissingMsg model, IFormFile imageFile2)
         {
-            model.DependentImage = imageFile;
-            //model.DependentImgURL = imageFile.FileName;
             model.Reporter.ContactType = ContactType.Family;
+            var imageUri = imageService.SaveImageToStorage(imageFile2);
+            model.DependentImgURL = imageUri.Result;
 
-            var uri = imageService.SaveToBlobStorage(imageFile);
+            SendMissingReport(model);
 
             return View();
         }
@@ -74,7 +74,6 @@ namespace LostChildApp.Controllers
         [HttpPost]
         public IActionResult NonFamilyReport(ReportMissingMsg model, IFormFile imageFile, string useMobileLocation)
         {
-            model.DependentImage = imageFile;
             model.DependentImgURL = imageFile.FileName;
             model.Reporter.ContactType = ContactType.NonFamily;
             if (useMobileLocation == "on")
@@ -111,7 +110,7 @@ namespace LostChildApp.Controllers
 
                 if (possibleMatches.Count > 0)
                 {
-                    int imageMatchIndex = imageService.CompareDependentImages(model.DependentImage, possibleMatches.Select(queueResults => queueResults.DependentImage));
+                    int imageMatchIndex = imageService.CompareImagesFromURI(model.DependentImgURL, possibleMatches.Select(queueResults => queueResults.DependentImgURL).ToArray());
                     if (imageMatchIndex >= 0)
                     {
                         ReportMissingMsg matchedReport = possibleMatches[imageMatchIndex];

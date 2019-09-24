@@ -49,13 +49,14 @@
                         <div class="col-lg-2 col-md-3">
                             <label for="image">Upload Picture</label>
                             <div class="mb-4">
-                                <input asp-for="DependentImage" class="uploadImg" id="imageFile" style="display: none;" type="file" name="imageFile" accept="image/*" required />
+                                <!--<input asp-for="DependentImage" class="uploadImg" id="imageFile" style="display: none;" type="file" name="imageFile" accept="image/*" required />-->
+                                <input class="uploadImg" id="imageFile" style="display: none;" type="file" name="imageFile" accept="image/*" required />
                                 <a id="image" class="fa fa-arrow-circle-up fa-8x img-thumbnail" onclick="UploadImage()"></a>
                             </div>
                         </div>
                         <div class="col-md-2">
                             <label> </label>
-                            <div class="imgPreview" class="mb-4" style="display: none">
+                            <div class="imgPreview mb-4" style="display: none">
                                 <img id="dependentImg" src="#" class="dependentImg" height="150" width="150" />
                             </div>
                         </div>
@@ -98,14 +99,14 @@
                         <div class="col-lg-2 col-md-3">
                             <label for="image">Upload Picture</label>
                             <div class="mb-4">
-                                <input asp-for="DependentImage" class="uploadImg" id="reportUploadImg2" style="display: none;" type="file" name="imageFile2" accept="image/*" required />
-                                <a id="image" class="fa fa-arrow-circle-up fa-8x img-thumbnail" onclick="UploadImage()"></a>
+                                <input class="uploadImg2" id="reportUploadImg2" style="display: none;" type="file" name="imageFile2" accept="image/*" required />
+                                <a id="image" class="fa fa-arrow-circle-up fa-8x img-thumbnail" onclick="UploadImage2()"></a>
                             </div>
                         </div>
                         <div class="col-md-2">
                             <label> </label>
-                            <div class="imgPreview" class="mb-4" style="display: none">
-                                <img id="dependentImg2" src="#" class="dependentImg" height="150" width="150" />
+                            <div class="imgPreview2 mb-4" style="display: none">
+                                <img id="dependentImg2" src="#" class="dependentImg2" height="150" width="150" />
                             </div>
                         </div>
                     </div>
@@ -121,7 +122,7 @@
                             </div>
                             <div class="form-group">
                                 <label asp-for="Reporter.Name">Your Name (Optional)</label>
-                                <input type="text" class="form-control" id="reporterName" />
+                                <input asp-for="Reporter.Name" type="text" class="form-control" id="reporterName" />
                             </div>
                             <button type="submit" class="btn px-5 color-dark-purple my-4">Submit</button>
                         </div>
@@ -135,24 +136,6 @@
 @section Scripts {
     <script>
         $(document).ready(function () {
-            @*$('.uploadImg').on('change', function (evt) {
-                var fileUpload = $('#imageFile').get(0);
-                var files = fileUpload.files;
-                var data = new FormData();
-                data.append(files[0].name, files[0]);
-                $.ajax({
-                    type: "POST",
-                    url: '@Url.Action("UploadImage", "ReportMissing")',
-                    contentType: false,
-                    processData: false,
-                    data: data,
-                    success: function (message) {
-                        alert(message);
-                    },
-                    error: function () {
-                        alert("nope didn't work");
-                    }
-                })*@
 
             $('.uploadImg').on('change', function (evt) {
 
@@ -166,6 +149,23 @@
 
                 reader.onload = function (e) {
                     $('.dependentImg').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(file);
+            })
+
+            $('.uploadImg2').on('change', function (evt) {
+
+                var fileUpload = $('.uploadImg2').get(0);
+                var files = fileUpload.files;
+                var file = files[0];
+
+                var reader = new FileReader();
+
+                $('.imgPreview2').show();
+
+                reader.onload = function (e) {
+                    $('.dependentImg2').attr('src', e.target.result);
                 }
 
                 reader.readAsDataURL(file);

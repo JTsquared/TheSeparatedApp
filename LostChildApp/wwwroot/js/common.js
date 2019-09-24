@@ -1,5 +1,11 @@
 ﻿function UploadImage() {
-    $('.uploadImg').first().click();
+    //$('.uploadImg').first().click();
+    $('.uploadImg').click();
+}
+
+function UploadImage2() {
+    //$('.uploadImg').first().click();
+    $('.uploadImg2').click();
 }
 
 function readURL(input) {

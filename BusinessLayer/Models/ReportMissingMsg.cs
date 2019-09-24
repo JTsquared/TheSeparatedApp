@@ -6,7 +6,7 @@ namespace BusinessLayer.Models
     public class ReportMissingMsg
     {
         public string DependentName { get; set; }
-        public IFormFile DependentImage { get; set; }
+        //public IFormFile DependentImage { get; set; }
         public string DependentImgURL { get; set; }
         public Contact Reporter { get; set; }
         public Location Location { get; set; }
