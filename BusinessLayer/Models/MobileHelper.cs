@@ -12,11 +12,11 @@ namespace BusinessLayer.Models
             return false;
         }
 
-        public void SendMatchNotification(ReportMissingMsg model, ReportMissingMsg matchedReport, bool canSendReporterLocation)
+        public void SendMatchNotification(ReportMissingMsg model, ReportMissingMsgAdaptor matchedReport, bool canSendReporterLocation)
         {
             //TODO: use builder class to build notification message
             INotification notification = NotificationBuilder.BuildMessage(model, canSendReporterLocation);
-            bool notificationSent = SendNotification(notification, matchedReport.Reporter.PhoneNumber);
+            bool notificationSent = SendNotification(notification, matchedReport.ReporterPhoneNumber);
         }
         public bool SendNotification(INotification notification, string phoneNumber)
         {

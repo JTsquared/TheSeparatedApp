@@ -70,7 +70,8 @@ namespace BusinessLayer.Models
             blockBlob.Properties.ContentType = dependentImage.ContentType;
             await blockBlob.UploadFromStreamAsync(dependentImage.OpenReadStream());
 
-            return await Task.FromResult(blockBlob.Uri.ToString());
+            //return await Task.FromResult(blockBlob.Uri.ToString());
+            return await Task.FromResult(blockBlob.Uri.Segments[2]);
 
         }
     }

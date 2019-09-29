@@ -16,7 +16,7 @@ namespace BusinessLayer.Models
 
         public MessageRepository()
         {
-            _cloudStorageAccount = CloudStorageAccount.Parse("DefaultEndpointsProtocol=https;AccountName=lostchildstoragegroup;AccountKey=clGdbIKEAkQx1OB2dZfazxCLdNLkqO490nX+SnE+FAlUCY6fNcOrfG0MAXaFT+An38sO1/0nuMVkIH2ZYE4cMw==;EndpointSuffix=core.windows.net");
+            _cloudStorageAccount = CloudStorageAccount.Parse("DefaultEndpointsProtocol=https;AccountName=theseparatedapptable;AccountKey=wG1nxodjz9Sgx12NSMKYjuaHvLUbAAiWXg+Y0ymQPpGldUv5GSpj/zLeEnXVPSx6L3kRU/amfUQUcKpjKljriw==;EndpointSuffix=core.windows.net");
             _cloudTableClient = _cloudStorageAccount.CreateCloudTableClient();
             _cloudTable = _cloudTableClient.GetTableReference("theseparatedapptable");
         }

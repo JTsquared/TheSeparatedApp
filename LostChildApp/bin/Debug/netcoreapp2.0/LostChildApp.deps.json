@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v2.0",
-    "signature": "d5fafa9ec8b924e901703cee53c9acfabcbce338"
+    "signature": "d3608f0c1c332a8c7b7f7d7d01438d1d735a93bf"
   },
   "compilationOptions": {
     "defines": [
@@ -581,7 +581,7 @@
       "Microsoft.AspNetCore.DataProtection.AzureStorage/2.0.2": {
         "dependencies": {
           "Microsoft.AspNetCore.DataProtection": "2.0.3",
-          "WindowsAzure.Storage": "8.1.4"
+          "WindowsAzure.Storage": "9.3.3"
         },
         "runtime": {
           "lib/netstandard2.0/Microsoft.AspNetCore.DataProtection.AzureStorage.dll": {}
@@ -1427,18 +1427,6 @@
           "lib/netstandard2.0/Microsoft.Azure.Storage.Common.dll": {}
         }
       },
-      "Microsoft.Azure.Storage.Queue/11.0.1": {
-        "dependencies": {
-          "Microsoft.Azure.Storage.Common": "11.0.1",
-          "NETStandard.Library": "2.0.1"
-        },
-        "runtime": {
-          "lib/netstandard2.0/Microsoft.Azure.Storage.Queue.dll": {}
-        },
-        "compile": {
-          "lib/netstandard2.0/Microsoft.Azure.Storage.Queue.dll": {}
-        }
-      },
       "Microsoft.CodeAnalysis.Analyzers/1.1.0": {},
       "Microsoft.CodeAnalysis.Common/2.3.1": {
         "dependencies": {
@@ -1543,84 +1531,6 @@
         }
       },
       "Microsoft.CSharp/4.4.0": {},
-      "Microsoft.Data.Edm/5.8.2": {
-        "runtime": {
-          "lib/netstandard1.1/Microsoft.Data.Edm.dll": {}
-        },
-        "resources": {
-          "lib/netstandard1.1/de/Microsoft.Data.Edm.resources.dll": {
-            "locale": "de"
-          },
-          "lib/netstandard1.1/es/Microsoft.Data.Edm.resources.dll": {
-            "locale": "es"
-          },
-          "lib/netstandard1.1/fr/Microsoft.Data.Edm.resources.dll": {
-            "locale": "fr"
-          },
-          "lib/netstandard1.1/it/Microsoft.Data.Edm.resources.dll": {
-            "locale": "it"
-          },
-          "lib/netstandard1.1/ja/Microsoft.Data.Edm.resources.dll": {
-            "locale": "ja"
-          },
-          "lib/netstandard1.1/ko/Microsoft.Data.Edm.resources.dll": {
-            "locale": "ko"
-          },
-          "lib/netstandard1.1/ru/Microsoft.Data.Edm.resources.dll": {
-            "locale": "ru"
-          },
-          "lib/netstandard1.1/zh-Hans/Microsoft.Data.Edm.resources.dll": {
-            "locale": "zh-Hans"
-          },
-          "lib/netstandard1.1/zh-Hant/Microsoft.Data.Edm.resources.dll": {
-            "locale": "zh-Hant"
-          }
-        },
-        "compile": {
-          "lib/netstandard1.1/Microsoft.Data.Edm.dll": {}
-        }
-      },
-      "Microsoft.Data.OData/5.8.2": {
-        "dependencies": {
-          "Microsoft.Data.Edm": "5.8.2",
-          "System.Spatial": "5.8.2"
-        },
-        "runtime": {
-          "lib/netstandard1.1/Microsoft.Data.OData.dll": {}
-        },
-        "resources": {
-          "lib/netstandard1.1/de/Microsoft.Data.OData.resources.dll": {
-            "locale": "de"
-          },
-          "lib/netstandard1.1/es/Microsoft.Data.OData.resources.dll": {
-            "locale": "es"
-          },
-          "lib/netstandard1.1/fr/Microsoft.Data.OData.resources.dll": {
-            "locale": "fr"
-          },
-          "lib/netstandard1.1/it/Microsoft.Data.OData.resources.dll": {
-            "locale": "it"
-          },
-          "lib/netstandard1.1/ja/Microsoft.Data.OData.resources.dll": {
-            "locale": "ja"
-          },
-          "lib/netstandard1.1/ko/Microsoft.Data.OData.resources.dll": {
-            "locale": "ko"
-          },
-          "lib/netstandard1.1/ru/Microsoft.Data.OData.resources.dll": {
-            "locale": "ru"
-          },
-          "lib/netstandard1.1/zh-Hans/Microsoft.Data.OData.resources.dll": {
-            "locale": "zh-Hans"
-          },
-          "lib/netstandard1.1/zh-Hant/Microsoft.Data.OData.resources.dll": {
-            "locale": "zh-Hant"
-          }
-        },
-        "compile": {
-          "lib/netstandard1.1/Microsoft.Data.OData.dll": {}
-        }
-      },
       "Microsoft.Data.Sqlite/2.0.1": {
         "dependencies": {
           "Microsoft.Data.Sqlite.Core": "2.0.1",
@@ -3859,43 +3769,6 @@
           "ref/netstandard2.0/System.Security.Principal.Windows.dll": {}
         }
       },
-      "System.Spatial/5.8.2": {
-        "runtime": {
-          "lib/netstandard1.1/System.Spatial.dll": {}
-        },
-        "resources": {
-          "lib/netstandard1.1/de/System.Spatial.resources.dll": {
-            "locale": "de"
-          },
-          "lib/netstandard1.1/es/System.Spatial.resources.dll": {
-            "locale": "es"
-          },
-          "lib/netstandard1.1/fr/System.Spatial.resources.dll": {
-            "locale": "fr"
-          },
-          "lib/netstandard1.1/it/System.Spatial.resources.dll": {
-            "locale": "it"
-          },
-          "lib/netstandard1.1/ja/System.Spatial.resources.dll": {
-            "locale": "ja"
-          },
-          "lib/netstandard1.1/ko/System.Spatial.resources.dll": {
-            "locale": "ko"
-          },
-          "lib/netstandard1.1/ru/System.Spatial.resources.dll": {
-            "locale": "ru"
-          },
-          "lib/netstandard1.1/zh-Hans/System.Spatial.resources.dll": {
-            "locale": "zh-Hans"
-          },
-          "lib/netstandard1.1/zh-Hant/System.Spatial.resources.dll": {
-            "locale": "zh-Hant"
-          }
-        },
-        "compile": {
-          "lib/netstandard1.1/System.Spatial.dll": {}
-        }
-      },
       "System.Text.Encoding/4.3.0": {
         "dependencies": {
           "Microsoft.NETCore.Platforms": "2.0.0",
@@ -4097,12 +3970,10 @@
           "lib/netstandard2.0/WebEssentials.AspNetCore.Pwa.dll": {}
         }
       },
-      "WindowsAzure.Storage/8.1.4": {
+      "WindowsAzure.Storage/9.3.3": {
         "dependencies": {
-          "Microsoft.Data.OData": "5.8.2",
           "NETStandard.Library": "2.0.1",
-          "Newtonsoft.Json": "12.0.2",
-          "System.Spatial": "5.8.2"
+          "Newtonsoft.Json": "12.0.2"
         },
         "runtime": {
           "lib/netstandard1.3/Microsoft.WindowsAzure.Storage.dll": {}
@@ -4115,8 +3986,8 @@
         "dependencies": {
           "Microsoft.AspNetCore.Http.Features": "2.2.0",
           "Microsoft.Azure.Storage.Blob": "11.0.1",
-          "Microsoft.Azure.Storage.Queue": "11.0.1",
-          "Newtonsoft.Json": "12.0.2"
+          "Newtonsoft.Json": "12.0.2",
+          "WindowsAzure.Storage": "9.3.3"
         },
         "runtime": {
           "BusinessLayer.dll": {}
@@ -4954,13 +4825,6 @@
       "path": "microsoft.azure.storage.common/11.0.1",
       "hashPath": "microsoft.azure.storage.common.11.0.1.nupkg.sha512"
     },
-    "Microsoft.Azure.Storage.Queue/11.0.1": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-HXF8ByEHv3hZDd7RM246du5W6T7Mq7ZAK+9s7SxFO64PDszNr4j7C0aN60K9E6FbNUi6h8yQ8hujKoV+kQzOVQ==",
-      "path": "microsoft.azure.storage.queue/11.0.1",
-      "hashPath": "microsoft.azure.storage.queue.11.0.1.nupkg.sha512"
-    },
     "Microsoft.CodeAnalysis.Analyzers/1.1.0": {
       "type": "package",
       "serviceable": true,
@@ -5009,20 +4873,6 @@
       "sha512": "sha512-vvVR/B08YVghQ4jHEloxqw2ZWzEGE1AOA5E0DioUM3ujbXz6FD3AfB/0Jl2ohJPd0nXYGwmPe1En6HTsSriq1A==",
       "path": "microsoft.csharp/4.4.0",
       "hashPath": "microsoft.csharp.4.4.0.nupkg.sha512"
-    },
-    "Microsoft.Data.Edm/5.8.2": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-P/d8DxA6MFHroBEn/jW0LMQSIKnsRRibrZtRCLfov2boQfrQ1R1BVgkJ5oIhcQsOm0l4POv+I2ny6RBsclNbOw==",
-      "path": "microsoft.data.edm/5.8.2",
-      "hashPath": "microsoft.data.edm.5.8.2.nupkg.sha512"
-    },
-    "Microsoft.Data.OData/5.8.2": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-oEIUtXcRiKogF0yZxA+QdgxoBJ34989qL/5xOSrTfxAhzNJV5Hw6DRdWgUCpeXFMoJUQx7ptbHCN+My/LCQfsg==",
-      "path": "microsoft.data.odata/5.8.2",
-      "hashPath": "microsoft.data.odata.5.8.2.nupkg.sha512"
     },
     "Microsoft.Data.Sqlite/2.0.1": {
       "type": "package",
@@ -6333,13 +6183,6 @@
       "path": "system.security.principal.windows/4.4.0",
       "hashPath": "system.security.principal.windows.4.4.0.nupkg.sha512"
     },
-    "System.Spatial/5.8.2": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-0RfZZJ8RlrfjoBPAF6pczX4Nd2kyLM8EX1PCP5Rqs/jOhJBUPYhpXjIsVAYN7kocj9IJ9XoJWAxWgXIDtJY2Ag==",
-      "path": "system.spatial/5.8.2",
-      "hashPath": "system.spatial.5.8.2.nupkg.sha512"
-    },
     "System.Text.Encoding/4.3.0": {
       "type": "package",
       "serviceable": true,
@@ -6480,12 +6323,12 @@
       "path": "webessentials.aspnetcore.pwa/1.0.59",
       "hashPath": "webessentials.aspnetcore.pwa.1.0.59.nupkg.sha512"
     },
-    "WindowsAzure.Storage/8.1.4": {
+    "WindowsAzure.Storage/9.3.3": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-W6ZZ0/o7+3Qb77mRAQyLjPudHG3OMeeQ4p9yY13PUdJArmRCx2cLMm5F4tpIjJXxzHC0ew0oK7DMDGILMdfCnw==",
-      "path": "windowsazure.storage/8.1.4",
-      "hashPath": "windowsazure.storage.8.1.4.nupkg.sha512"
+      "sha512": "sha512-VUV8j6dzkU/7vDgk5k+ob5g7nnch2fNByr0p9aOxMGFGk+tAnTehrZ4qnClF04CVozP1GNN2zrnbsxCmr+iZBg==",
+      "path": "windowsazure.storage/9.3.3",
+      "hashPath": "windowsazure.storage.9.3.3.nupkg.sha512"
     },
     "BusinessLayer/1.0.0": {
       "type": "project",
