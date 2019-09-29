@@ -15,17 +15,17 @@ namespace LostChildApp.Controllers
     public class ReportMissingController : Controller
     {
         private readonly IHostingEnvironment hostingEnvironment;
-        private readonly IMessageQueue mq;
+        private readonly IMessageRepository mq;
         private readonly IImageService imageService;
         private readonly IMobileHelper mobileHelper;
 
-        public ReportMissingController(IHostingEnvironment hostingEnvironment, IMessageQueue mq, IImageService imageService, IMobileHelper mobileHelper)
+        public ReportMissingController(IHostingEnvironment hostingEnvironment, IMessageRepository mq, IImageService imageService, IMobileHelper mobileHelper)
         {
             this.hostingEnvironment = hostingEnvironment;
             this.mq = mq;
             this.imageService = imageService;
             this.mobileHelper = mobileHelper;
-            
+
         }
 
         public IActionResult Index()
@@ -80,6 +80,9 @@ namespace LostChildApp.Controllers
             {
                 model.Location = GetMobileLocation();
             }
+
+            SendMissingReport(model);
+
             return View();
         }
 
@@ -98,32 +101,38 @@ namespace LostChildApp.Controllers
         private Location GetMobileLocation()
         {
             //TODO: return mobile location of mobile GPS coords;
-            return new Location();
+            Coordinates coordinates = new Coordinates(7, 8);
+            Location location = new Location();
+            location.Coordinates = coordinates;
+            return location;
         }
 
         private void SendMissingReport(ReportMissingMsg model)
         {
             if (model != null)
             {
-                //search for existing reports in msg queue based on user proximity 
-                List<ReportMissingMsg> possibleMatches = mq.PollMsgQueue(model.Reporter.ContactType, model.Location);
+                //search for existing reports in msg queue based on user proximity
+                //TODO: move magic number for searchRadius into a constant
+                List<ReportMissingMsgAdaptor> possibleMatches = mq.GetMessagesByLocation(model.Reporter.ContactType, model.Location, 5);
 
                 if (possibleMatches.Count > 0)
                 {
                     int imageMatchIndex = imageService.CompareImagesFromURI(model.DependentImgURL, possibleMatches.Select(queueResults => queueResults.DependentImgURL).ToArray());
                     if (imageMatchIndex >= 0)
                     {
-                        ReportMissingMsg matchedReport = possibleMatches[imageMatchIndex];
+                        ReportMissingMsgAdaptor matchedReport = possibleMatches[imageMatchIndex];
                         bool canSendReporterLocation = mobileHelper.RequestToProvideLocation();
                         mobileHelper.SendMatchNotification(model, matchedReport, canSendReporterLocation);
-                        mobileHelper.OfferToCallReporter(matchedReport.Reporter.PhoneNumber);
-                        mq.RemoveQueueMsg(model, matchedReport);
+                        //TODO: rather than have an "OfferToCallReporter" method instead change to "CallReporter" method and move method call into another controller from with which the user is redirected in order to offer to connect them to the other part
+                        mobileHelper.OfferToCallReporter(matchedReport.ReporterPhoneNumber);
+                        mq.RemoveMessageFromStorage(new ReportMissingMsgAdaptor(model));
                         return;
                     }
                 }
 
                 //if a match is not found add the message to the message queue and notify user that the report has been logged and that they will be notified when a match is found
-                //AddReportToQueue();
+                mq.AddMessageToStorage(new ReportMissingMsgAdaptor(model));
+                
             }
         }
     }

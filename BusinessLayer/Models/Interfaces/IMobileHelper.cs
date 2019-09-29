@@ -4,7 +4,7 @@
     {
         bool RequestToProvideLocation();
 
-        void SendMatchNotification(ReportMissingMsg model, ReportMissingMsg matchedReport, bool canSendReporterLocation);
+        void SendMatchNotification(ReportMissingMsg model, ReportMissingMsgAdaptor matchedReport, bool canSendReporterLocation);
 
         bool SendNotification(INotification notification, string phoneNumber);
 

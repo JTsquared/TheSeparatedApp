@@ -25,7 +25,7 @@ namespace LostFamily
         {
             services.AddMvc();
             services.AddProgressiveWebApp();
-            services.AddSingleton<IMessageQueue, MQ>();
+            services.AddSingleton<IMessageRepository, MessageRepository>();
             services.AddSingleton<IImageService, ImageService>();
             services.AddSingleton<IMobileHelper, MobileHelper>();
         }
