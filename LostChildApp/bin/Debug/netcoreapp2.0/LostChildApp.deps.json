@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v2.0",
-    "signature": "d3608f0c1c332a8c7b7f7d7d01438d1d735a93bf"
+    "signature": "969a68425fe507650dbfecbafe24d86ceb6e9644"
   },
   "compilationOptions": {
     "defines": [
@@ -1356,11 +1356,26 @@
           "lib/netstandard2.0/Microsoft.AspNetCore.WebUtilities.dll": {}
         }
       },
+      "Microsoft.Azure.CognitiveServices.Vision.Face/2.2.0-preview": {
+        "dependencies": {
+          "Microsoft.Rest.ClientRuntime": "2.3.12",
+          "Microsoft.Rest.ClientRuntime.Azure": "3.3.13",
+          "NETStandard.Library": "2.0.1",
+          "Newtonsoft.Json": "12.0.2",
+          "System.Net.Http": "4.3.0"
+        },
+        "runtime": {
+          "lib/netstandard1.4/Microsoft.Azure.CognitiveServices.Vision.Face.dll": {}
+        },
+        "compile": {
+          "lib/netstandard1.4/Microsoft.Azure.CognitiveServices.Vision.Face.dll": {}
+        }
+      },
       "Microsoft.Azure.KeyVault/2.3.2": {
         "dependencies": {
           "Microsoft.Azure.KeyVault.WebKey": "2.0.7",
-          "Microsoft.Rest.ClientRuntime": "2.3.8",
-          "Microsoft.Rest.ClientRuntime.Azure": "3.3.7",
+          "Microsoft.Rest.ClientRuntime": "2.3.12",
+          "Microsoft.Rest.ClientRuntime.Azure": "3.3.13",
           "NETStandard.Library": "2.0.1",
           "Newtonsoft.Json": "12.0.2",
           "System.Net.Http": "4.3.0"
@@ -2247,7 +2262,7 @@
         }
       },
       "Microsoft.NETCore.Targets/1.1.0": {},
-      "Microsoft.Rest.ClientRuntime/2.3.8": {
+      "Microsoft.Rest.ClientRuntime/2.3.12": {
         "dependencies": {
           "NETStandard.Library": "2.0.1",
           "Newtonsoft.Json": "12.0.2"
@@ -2259,9 +2274,9 @@
           "lib/netstandard1.4/Microsoft.Rest.ClientRuntime.dll": {}
         }
       },
-      "Microsoft.Rest.ClientRuntime.Azure/3.3.7": {
+      "Microsoft.Rest.ClientRuntime.Azure/3.3.13": {
         "dependencies": {
-          "Microsoft.Rest.ClientRuntime": "2.3.8",
+          "Microsoft.Rest.ClientRuntime": "2.3.12",
           "NETStandard.Library": "2.0.1",
           "Newtonsoft.Json": "12.0.2"
         },
@@ -3985,6 +4000,7 @@
       "BusinessLayer/1.0.0": {
         "dependencies": {
           "Microsoft.AspNetCore.Http.Features": "2.2.0",
+          "Microsoft.Azure.CognitiveServices.Vision.Face": "2.2.0-preview",
           "Microsoft.Azure.Storage.Blob": "11.0.1",
           "Newtonsoft.Json": "12.0.2",
           "WindowsAzure.Storage": "9.3.3"
@@ -4790,6 +4806,13 @@
       "path": "microsoft.aspnetcore.webutilities/2.0.3",
       "hashPath": "microsoft.aspnetcore.webutilities.2.0.3.nupkg.sha512"
     },
+    "Microsoft.Azure.CognitiveServices.Vision.Face/2.2.0-preview": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-2FYaz6VKo4+kCtiZhlFAhdopgk8vpzX+MyMpmus/buARUj5oEoajD855RLKhd7IBtVreXwVuie6Zb4PcPtv7hw==",
+      "path": "microsoft.azure.cognitiveservices.vision.face/2.2.0-preview",
+      "hashPath": "microsoft.azure.cognitiveservices.vision.face.2.2.0-preview.nupkg.sha512"
+    },
     "Microsoft.Azure.KeyVault/2.3.2": {
       "type": "package",
       "serviceable": true,
@@ -5301,19 +5324,19 @@
       "path": "microsoft.netcore.targets/1.1.0",
       "hashPath": "microsoft.netcore.targets.1.1.0.nupkg.sha512"
     },
-    "Microsoft.Rest.ClientRuntime/2.3.8": {
+    "Microsoft.Rest.ClientRuntime/2.3.12": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-Hj96LBoCwKY2VQKfSCVGGPV1sSumVjuYnrlpBwL4JSTnSK4b6ZxjLtXj8LgmKav8xJ2gps+UN7eI3hHVFKvBFw==",
-      "path": "microsoft.rest.clientruntime/2.3.8",
-      "hashPath": "microsoft.rest.clientruntime.2.3.8.nupkg.sha512"
+      "sha512": "sha512-hzB8DuR9fk0cyn7LyrCuX+qP2AxfgzVNY0T/DAzapqvVLzvE7sPy4H/oe1wQAezJMa633ND5cYH3DOdRRlf9jA==",
+      "path": "microsoft.rest.clientruntime/2.3.12",
+      "hashPath": "microsoft.rest.clientruntime.2.3.12.nupkg.sha512"
     },
-    "Microsoft.Rest.ClientRuntime.Azure/3.3.7": {
+    "Microsoft.Rest.ClientRuntime.Azure/3.3.13": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-6u8JIuvrztse4tPOcvNzAJuzGBP0uY+Ijggk8ZYhp0siGEZ1XfZylf1vpNGUicvwcrhhoIgDW73Z1L6QGssr2g==",
-      "path": "microsoft.rest.clientruntime.azure/3.3.7",
-      "hashPath": "microsoft.rest.clientruntime.azure.3.3.7.nupkg.sha512"
+      "sha512": "sha512-jHSuvtxSEn5A3gTkFNHlu3PAjrT/qSIRRocdzazRUkvmFpZGI7vDyZ/T0oW5D3K7om+7X2ImcxTU45fNR7NB/A==",
+      "path": "microsoft.rest.clientruntime.azure/3.3.13",
+      "hashPath": "microsoft.rest.clientruntime.azure.3.3.13.nupkg.sha512"
     },
     "Microsoft.VisualStudio.Web.BrowserLink/2.0.2": {
       "type": "package",

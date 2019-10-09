@@ -63,8 +63,9 @@ namespace LostChildApp.Controllers
         public IActionResult FamilyReport(ReportMissingMsg model, IFormFile imageFile2, string useMobileLocation)
         {
             model.Reporter.ContactType = ContactType.Family;
-            var imageUri = imageService.SaveImageToStorage(imageFile2);
-            model.DependentImgURL = imageUri.Result;
+            //var imageUri = imageService.SaveImageToStorageAsync(imageFile2);
+            //model.DependentImgURL = imageUri.Result;
+            model.DependentImgURL = imageService.SaveImageToStorage(imageFile2);
             if (useMobileLocation == "on")
             {
                 model.Location = GetMobileLocation();
@@ -78,10 +79,11 @@ namespace LostChildApp.Controllers
         [HttpPost]
         public IActionResult NonFamilyReport(ReportMissingMsg model, IFormFile imageFile, string useMobileLocation)
         {
-            model.DependentImgURL = imageFile.FileName;
+            //model.DependentImgURL = imageFile.FileName;
             model.Reporter.ContactType = ContactType.NonFamily;
-            var imageUri = imageService.SaveImageToStorage(imageFile);
-            model.DependentImgURL = imageUri.Result;
+            //var imageUri = imageService.SaveImageToStorageAsync(imageFile);
+            //model.DependentImgURL = imageUri.Result;
+            model.DependentImgURL = imageService.SaveImageToStorage(imageFile);
             if (useMobileLocation == "on")
             {
                 model.Location = GetMobileLocation();
