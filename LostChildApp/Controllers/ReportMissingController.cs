@@ -60,16 +60,10 @@ namespace LostChildApp.Controllers
         //}
 
         [HttpPost]
-        public IActionResult FamilyReport(ReportMissingMsg model, IFormFile imageFile2, string useMobileLocation)
+        public IActionResult FamilyReport(ReportMissingMsg model, IFormFile imageFile2)
         {
             model.Reporter.ContactType = ContactType.Family;
-            //var imageUri = imageService.SaveImageToStorageAsync(imageFile2);
-            //model.DependentImgURL = imageUri.Result;
             model.DependentImgURL = imageService.SaveImageToStorage(imageFile2);
-            if (useMobileLocation == "on")
-            {
-                model.Location = GetMobileLocation();
-            }
 
             SendMissingReport(model);
 
@@ -77,17 +71,10 @@ namespace LostChildApp.Controllers
         }
 
         [HttpPost]
-        public IActionResult NonFamilyReport(ReportMissingMsg model, IFormFile imageFile, string useMobileLocation)
+        public IActionResult NonFamilyReport(ReportMissingMsg model, IFormFile imageFile)
         {
-            //model.DependentImgURL = imageFile.FileName;
             model.Reporter.ContactType = ContactType.NonFamily;
-            //var imageUri = imageService.SaveImageToStorageAsync(imageFile);
-            //model.DependentImgURL = imageUri.Result;
             model.DependentImgURL = imageService.SaveImageToStorage(imageFile);
-            if (useMobileLocation == "on")
-            {
-                model.Location = GetMobileLocation();
-            }
 
             SendMissingReport(model);
 
@@ -106,22 +93,13 @@ namespace LostChildApp.Controllers
             }
         }
 
-        private Location GetMobileLocation()
-        {
-            //TODO: return mobile location of mobile GPS coords;
-            Coordinates coordinates = new Coordinates(7, 8);
-            Location location = new Location();
-            location.Coordinates = coordinates;
-            return location;
-        }
-
         private void SendMissingReport(ReportMissingMsg model)
         {
             if (model != null)
             {
                 //search for existing reports in msg queue based on user proximity
                 //TODO: move magic number for searchRadius into a constant
-                List<ReportMissingMsgAdaptor> possibleMatches = mq.GetMessagesByLocation(model.Reporter.ContactType, model.Location, 5);
+                List<ReportMissingMsgAdaptor> possibleMatches = mq.GetMessagesByLocation(model.Reporter.ContactType, model.Coordinates, 5);
 
                 if (possibleMatches.Count > 0)
                 {

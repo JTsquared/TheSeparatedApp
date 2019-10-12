@@ -2,6 +2,18 @@
   "version": 3,
   "targets": {
     ".NETCoreApp,Version=v2.0": {
+      "Geolocation.NetStandard/1.1.1": {
+        "type": "package",
+        "dependencies": {
+          "NETStandard.Library": "1.6.1"
+        },
+        "compile": {
+          "lib/netstandard1.4/GeolocationNetStandard.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard1.4/GeolocationNetStandard.dll": {}
+        }
+      },
       "Microsoft.AspNetCore.Http.Features/2.2.0": {
         "type": "package",
         "dependencies": {
@@ -1098,6 +1110,18 @@
     }
   },
   "libraries": {
+    "Geolocation.NetStandard/1.1.1": {
+      "sha512": "VPydNfcQS5Ycll2X58CFxtvnWLpVNSDmU0R15wN73KZnZ5fZ5dUpvEAgaL8j1HxHHaCGrNC24l9ZheFLGxnU/w==",
+      "type": "package",
+      "path": "geolocation.netstandard/1.1.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "geolocation.netstandard.1.1.1.nupkg.sha512",
+        "geolocation.netstandard.nuspec",
+        "lib/netstandard1.4/GeolocationNetStandard.dll"
+      ]
+    },
     "Microsoft.AspNetCore.Http.Features/2.2.0": {
       "sha512": "ziFz5zH8f33En4dX81LW84I6XrYXKf9jg6aM39cM+LffN9KJahViKZ61dGMSO2gd3e+qe5yBRwsesvyqlZaSMg==",
       "type": "package",
@@ -3847,6 +3871,7 @@
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.0": [
+      "Geolocation.NetStandard >= 1.1.1",
       "Microsoft.AspNetCore.Http.Features >= 2.2.0",
       "Microsoft.Azure.CognitiveServices.Vision.Face >= 2.2.0-preview",
       "Microsoft.Azure.Storage.Blob >= 11.0.1",
@@ -3896,6 +3921,10 @@
     "frameworks": {
       "netcoreapp2.0": {
         "dependencies": {
+          "Geolocation.NetStandard": {
+            "target": "Package",
+            "version": "[1.1.1, )"
+          },
           "Microsoft.AspNetCore.Http.Features": {
             "target": "Package",
             "version": "[2.2.0, )"

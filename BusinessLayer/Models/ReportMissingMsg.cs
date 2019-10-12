@@ -9,7 +9,7 @@ namespace BusinessLayer.Models
         //public IFormFile DependentImage { get; set; }
         public string DependentImgURL { get; set; }
         public Contact Reporter { get; set; }
-        public Location Location { get; set; }
+        public Coordinates Coordinates { get; set; }
 
         public ReportMissingMsg() { }
 
@@ -26,12 +26,12 @@ namespace BusinessLayer.Models
             Reporter = reporter;
         }
 
-        public ReportMissingMsg(string childName, string dependentImgURL, Contact reporter, Location location)
+        public ReportMissingMsg(string childName, string dependentImgURL, Contact reporter, Coordinates coordinates)
         {
             DependentName = childName;
             DependentImgURL = dependentImgURL;
             Reporter = reporter;
-            Location = location;
+            Coordinates = coordinates;
         }
     }
 }

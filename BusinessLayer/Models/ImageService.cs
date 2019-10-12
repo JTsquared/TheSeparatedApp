@@ -23,7 +23,7 @@ namespace BusinessLayer.Models
         private IFaceClient _faceClient;
         //TODO: move these constants into a configuration file or key vault
         const string FACE_API_SUBSCRIPTION_KEY = "8159e76c158f481da41dd022b3c5a287";
-        const string FACE_API_URI = "https://separatedappfaceapi.cognitiveservices.azure.com/face/v1.0";
+        const string FACE_API_URI = "https://separatedappfaceapi.cognitiveservices.azure.com";
         const double MATCH_CONFIDENCE_MIN = .50d;
 
         //// Set your environment variables with these with the names below. Close and reopen your project for changes to take effect.
@@ -159,13 +159,18 @@ namespace BusinessLayer.Models
 
         public async Task<IList<DetectedFace>> GetFaceIDAsync(string imageURI)
         {
-            string requestParameters = "returnFaceId=true&returnFaceLandmarks=false" +
-            "&returnFaceAttributes=age,gender,headPose,smile,facialHair,glasses," +
-            "emotion,hair,makeup,occlusion,accessories,blur,exposure,noise";
+            IList<FaceAttributeType> faceAttributes = new FaceAttributeType[]
+            {
+                FaceAttributeType.Gender, FaceAttributeType.Age,
+                FaceAttributeType.Smile, FaceAttributeType.Emotion,
+                FaceAttributeType.Glasses, FaceAttributeType.Hair,
+                FaceAttributeType.HeadPose, FaceAttributeType.FacialHair,
+                FaceAttributeType.Makeup, FaceAttributeType.Occlusion,
+                FaceAttributeType.Noise, FaceAttributeType.Blur,
+                FaceAttributeType.Accessories, FaceAttributeType.Exposure
+            };
 
-            // Assemble the URI for the REST API Call.
-            string uri = FACE_API_URI + "/detect?overload=stream&" + requestParameters;
-            _faceClient.Endpoint = uri;
+            //_faceClient.Endpoint = "https://separatedappfaceapi.cognitiveservices.azure.com";
 
             CloudBlob blob = _cloudBlobContainer.GetBlobReference(imageURI);
 
@@ -186,7 +191,7 @@ namespace BusinessLayer.Models
                 FaceAttributeType.Accessories, FaceAttributeType.Exposure
             };
 
-            _faceClient.Endpoint = "https://separatedappfaceapi.cognitiveservices.azure.com";
+            //_faceClient.Endpoint = "https://separatedappfaceapi.cognitiveservices.azure.com";
 
             var response = await _faceClient.Face.DetectWithStreamAsync(new MemoryStream(imageByteArr), true, false, faceAttributes);
             return response;

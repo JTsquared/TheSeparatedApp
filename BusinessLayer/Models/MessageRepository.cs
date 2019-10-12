@@ -13,44 +13,49 @@ namespace BusinessLayer.Models
         private CloudStorageAccount _cloudStorageAccount;
         private CloudTableClient _cloudTableClient;
         private CloudTable _cloudTable;
+        private IGeolocator _geolocator;
 
         public MessageRepository()
         {
             _cloudStorageAccount = CloudStorageAccount.Parse("DefaultEndpointsProtocol=https;AccountName=theseparatedapptable;AccountKey=wG1nxodjz9Sgx12NSMKYjuaHvLUbAAiWXg+Y0ymQPpGldUv5GSpj/zLeEnXVPSx6L3kRU/amfUQUcKpjKljriw==;EndpointSuffix=core.windows.net");
             _cloudTableClient = _cloudStorageAccount.CreateCloudTableClient();
             _cloudTable = _cloudTableClient.GetTableReference("theseparatedapptable");
+            _geolocator = new Geolocator();
         }
 
-        public MessageRepository(CloudStorageAccount cloudStorageAccount, CloudTableClient cloudTableClient, CloudTable cloudTable)
+        public MessageRepository(CloudStorageAccount cloudStorageAccount, CloudTableClient cloudTableClient, CloudTable cloudTable, IGeolocator geolocator)
         {
             _cloudStorageAccount = cloudStorageAccount;
             _cloudTableClient = cloudTableClient;
             _cloudTable = cloudTable;
+            _geolocator = geolocator;
         }
 
-        public List<ReportMissingMsgAdaptor> GetMessagesByLocation(ContactType contactType, Location location, double searchRadius)
+        public List<ReportMissingMsgAdaptor> GetMessagesByLocation(ContactType contactType, Coordinates coordinates, double searchRadius)
         {
-            var tableSegmentResults = GetMessagesByLocationAsync(contactType, location, searchRadius);
+            var tableSegmentResults = GetMessagesByLocationAsync(contactType, coordinates, searchRadius);
             return tableSegmentResults.Result;
         }
 
-        public async Task<List<ReportMissingMsgAdaptor>> GetMessagesByLocationAsync(ContactType contactType, Location location, double searchRadius)
+        public async Task<List<ReportMissingMsgAdaptor>> GetMessagesByLocationAsync(ContactType contactType, Coordinates coordinates, double searchRadiusInMiles)
         {
             //make sure that the contact type search is opposite the contact type of the caller. i.e. if caller has contact type family the contact type for search should be non-family
             ContactType searchContactType = contactType == ContactType.NonFamily ? ContactType.Family : ContactType.NonFamily;
 
+            BoundingBox boundingBox = _geolocator.GetBoundingBox(coordinates, searchRadiusInMiles);
+
             List<ReportMissingMsgAdaptor> messageList = new List<ReportMissingMsgAdaptor>();
 
             //setup search radius filter for azure storage table to only pull records within a certain distance of report location
-            string longitudeMinusFilter = TableQuery.GenerateFilterConditionForDouble("Longitude", QueryComparisons.GreaterThan, location.Coordinates.Longitude - searchRadius);
-            string longitudePlusFilter = TableQuery.GenerateFilterConditionForDouble("Longitude", QueryComparisons.LessThan, location.Coordinates.Longitude + searchRadius);
-            string latitudeMinusFilter = TableQuery.GenerateFilterConditionForDouble("Latitude", QueryComparisons.GreaterThan, location.Coordinates.Latitude - searchRadius);
-            string latitudePlusFilter = TableQuery.GenerateFilterConditionForDouble("Latitude", QueryComparisons.LessThan, location.Coordinates.Latitude + searchRadius);
+            string latitudeMinusFilter = TableQuery.GenerateFilterConditionForDouble("Latitude", QueryComparisons.GreaterThan, boundingBox.MinLatitude);
+            string latitudePlusFilter = TableQuery.GenerateFilterConditionForDouble("Latitude", QueryComparisons.LessThan, boundingBox.MaxLatitude);
+            string longitudeMinusFilter = TableQuery.GenerateFilterConditionForDouble("Longitude", QueryComparisons.GreaterThan, boundingBox.MinLongitude);
+            string longitudePlusFilter = TableQuery.GenerateFilterConditionForDouble("Longitude", QueryComparisons.LessThan, boundingBox.MaxLongitude);
 
-            string longitudePlusMinus = TableQuery.CombineFilters(longitudeMinusFilter, TableOperators.Or, longitudePlusFilter);
             string latitudePlusMinus = TableQuery.CombineFilters(latitudeMinusFilter, TableOperators.Or, latitudePlusFilter);
+            string longitudePlusMinus = TableQuery.CombineFilters(longitudeMinusFilter, TableOperators.Or, longitudePlusFilter);
 
-            string locSearchRadiusFilter = TableQuery.CombineFilters(longitudePlusMinus, TableOperators.And, latitudePlusMinus);
+            string locSearchRadiusFilter = TableQuery.CombineFilters(latitudePlusMinus, TableOperators.And, longitudePlusMinus);
 
             TableQuery<ReportMissingMsgAdaptor> query = new TableQuery<ReportMissingMsgAdaptor>().Where(locSearchRadiusFilter);
 

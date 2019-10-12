@@ -14,7 +14,7 @@ namespace BusinessLayer.Models
         public byte ReporterContactType { get; set; }
         public double Longitude { get; set; }
         public double Latitude { get; set; }
-        public Location Location { get; set; }
+        public Geolocator Location { get; set; }
 
         public ReportMissingMsgAdaptor() { }
 
@@ -25,8 +25,8 @@ namespace BusinessLayer.Models
             ReporterName = report?.Reporter?.Name ?? String.Empty;
             ReporterPhoneNumber = report?.Reporter?.PhoneNumber ?? String.Empty;
             ReporterContactType = (byte)report?.Reporter?.ContactType;
-            Longitude = (double)report?.Location?.Coordinates?.Longitude;
-            Latitude = (double)report?.Location?.Coordinates?.Latitude;
+            Longitude = (double)report?.Coordinates?.Longitude;
+            Latitude = (double)report?.Coordinates?.Latitude;
 
             this.PartitionKey = ReporterContactType.ToString();
             this.RowKey = DependentImgURL;
