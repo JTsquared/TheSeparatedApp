@@ -2,6 +2,6 @@
 {
     public interface IGeolocator
     {
-        BoundingBox GetBoundingBox(Coordinates coordinates, double radiusInMiles);
+        BoundingBox CreateBoundingBox(Coordinates coordinates, double radiusInMiles);
     }
 }

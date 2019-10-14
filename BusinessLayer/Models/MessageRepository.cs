@@ -42,7 +42,7 @@ namespace BusinessLayer.Models
             //make sure that the contact type search is opposite the contact type of the caller. i.e. if caller has contact type family the contact type for search should be non-family
             ContactType searchContactType = contactType == ContactType.NonFamily ? ContactType.Family : ContactType.NonFamily;
 
-            BoundingBox boundingBox = _geolocator.GetBoundingBox(coordinates, searchRadiusInMiles);
+            BoundingBox boundingBox = _geolocator.CreateBoundingBox(coordinates, searchRadiusInMiles);
 
             List<ReportMissingMsgAdaptor> messageList = new List<ReportMissingMsgAdaptor>();
 
@@ -86,6 +86,13 @@ namespace BusinessLayer.Models
         {
             //TODO: make a call to queue storage to process/clear message
             //after project is in MVP state consider creating a secondary queue to push both the model message and the matched report message which could be kept until family member confirmed that their dependent has been reunited
+            RemoveMessageFromStorageAsync(reportMessage).GetAwaiter().GetResult();
+        }
+
+        private async Task RemoveMessageFromStorageAsync(ReportMissingMsgAdaptor reportMessage)
+        {
+            TableOperation tableOperation = TableOperation.Delete(reportMessage);
+            var results = await _cloudTable.ExecuteAsync(tableOperation);
         }
     }
 }

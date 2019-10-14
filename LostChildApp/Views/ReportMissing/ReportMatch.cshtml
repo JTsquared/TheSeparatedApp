@@ -1,0 +1,26 @@
+﻿@model BusinessLayer.Models.ReportMissingMsgAdaptor
+@{
+    ViewData["Title"] = "ReportMatch";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid container-purple">
+    <div class="row color-dark-purple">
+        <div class="col-md-12 color-dark-purple px-5 py-4 text-center">
+            <h2>
+                Great news, a missing report match was found based on the picture you provided!
+            </h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 px-4 my-4">
+            <strong>We have already sent a notification to the other party to let them know that the missing dependent was found and you will likely receive a call shortly but if you would like you may try to contact the other party first.</strong>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 px-4 pb-4">
+            <button class="btn btn-lg btn-primary" type="button">Contact Other Party</button>
+        </div>
+    </div>
+</div>
+

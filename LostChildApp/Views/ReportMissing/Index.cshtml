@@ -76,7 +76,7 @@
                                 <input asp-for="Reporter.Name" type="text" class="form-control" id="reporterName" />
                             </div>
                             <div class="form-group">
-                                <label for="useMobileLocation" class="form-check-label">Can we use your mobile location?</label>
+                                <label for="useMobileLocation" class="form-check-label">Do we have permission to send your location to the family member of the lost dependent?</label>
                                 <input for="useMobileLocation" name="useMobileLocation" type="checkbox" class="form-check-inline" id="useMobileLocation" />
                                 <input asp-for="Coordinates.Latitude" type="hidden" class="userLat" id="userLatitude1" />
                                 <input asp-for="Coordinates.Longitude" type="hidden" class="userLong" id="userLongitude1" />
@@ -127,11 +127,13 @@
                                 <input asp-for="Reporter.Name" type="text" class="form-control" id="reporterName" />
                             </div>
                             <div class="form-group">
+                                <label for="useMobileLocation" class="form-check-label">Do we have permission to send your location to the person who finds your lost dependent?</label>
+                                <input for="useMobileLocation" name="useMobileLocation" type="checkbox" class="form-check-inline" id="useMobileLocation" />
                                 <input asp-for="Coordinates.Latitude" type="hidden" class="userLat" id="userLatitude2" />
                                 <input asp-for="Coordinates.Longitude" type="hidden" class="userLong" id="userLongitude2" />
-
                             </div>
                             <button type="submit" class="btn px-5 color-dark-purple my-4">Submit</button>
+                            @*//TODO: Add server side validation including a check to make sure location permission is given.*@
 
                             <p id="demo"></p>
 
@@ -159,6 +161,7 @@
                 $('#userLatitude1')[0].value = coordinates.latitude;
                 $('#userLongitude2')[0].value = coordinates.longitude;
                 $('#userLongitude1')[0].value = coordinates.longitude;
+                alert("coordinates: " + coordinates.latitude + ", " + coordinates.longitude);
             }
         })
     </script>
@@ -200,7 +203,6 @@
                 reader.readAsDataURL(file);
             })
         })
-
     </script>
 }
 

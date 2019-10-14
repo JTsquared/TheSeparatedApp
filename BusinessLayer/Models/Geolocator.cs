@@ -5,11 +5,7 @@ namespace BusinessLayer.Models
 {
     public class Geolocator : IGeolocator
     {
-        private BoundingBox _boundingBox;
-
-        public BoundingBox BoundingBox { get; set; }
-
-        public BoundingBox GetBoundingBox(Coordinates coordinates, double radiusInMiles)
+        public BoundingBox CreateBoundingBox(Coordinates coordinates, double radiusInMiles)
         {
             CoordinateBoundaries boundaries = new CoordinateBoundaries(coordinates.Latitude, coordinates.Longitude, radiusInMiles);
             return new BoundingBox(boundaries.MinLatitude, boundaries.MaxLatitude, boundaries.MinLongitude, boundaries.MaxLongitude);
@@ -44,8 +40,10 @@ namespace BusinessLayer.Models
         private double longitude;
         private double latitude;
 
-        public double Longitude { get => longitude; }
-        public double Latitude { get => latitude; }
+        public double Latitude { get => latitude; set => latitude = value; }
+        public double Longitude { get => longitude; set => longitude = value; }
+
+        public Coordinates() { }
 
         public Coordinates(double longitude, double latitude)
         {

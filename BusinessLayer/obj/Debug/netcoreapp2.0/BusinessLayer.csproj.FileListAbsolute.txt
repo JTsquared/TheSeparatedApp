@@ -1,9 +1,9 @@
 D:\Users\Jon\Projects\Visual Studio Projects\LostChildApp\LostChildApp\BusinessLayer\bin\Debug\netcoreapp2.0\BusinessLayer.deps.json
 D:\Users\Jon\Projects\Visual Studio Projects\LostChildApp\LostChildApp\BusinessLayer\bin\Debug\netcoreapp2.0\BusinessLayer.dll
-D:\Users\Jon\Projects\Visual Studio Projects\LostChildApp\LostChildApp\BusinessLayer\obj\Debug\netcoreapp2.0\BusinessLayer.csprojAssemblyReference.cache
+D:\Users\Jon\Projects\Visual Studio Projects\LostChildApp\LostChildApp\BusinessLayer\bin\Debug\netcoreapp2.0\BusinessLayer.pdb
 D:\Users\Jon\Projects\Visual Studio Projects\LostChildApp\LostChildApp\BusinessLayer\obj\Debug\netcoreapp2.0\BusinessLayer.csproj.CoreCompileInputs.cache
 D:\Users\Jon\Projects\Visual Studio Projects\LostChildApp\LostChildApp\BusinessLayer\obj\Debug\netcoreapp2.0\BusinessLayer.AssemblyInfoInputs.cache
 D:\Users\Jon\Projects\Visual Studio Projects\LostChildApp\LostChildApp\BusinessLayer\obj\Debug\netcoreapp2.0\BusinessLayer.AssemblyInfo.cs
-D:\Users\Jon\Projects\Visual Studio Projects\LostChildApp\LostChildApp\BusinessLayer\bin\Debug\netcoreapp2.0\BusinessLayer.pdb
 D:\Users\Jon\Projects\Visual Studio Projects\LostChildApp\LostChildApp\BusinessLayer\obj\Debug\netcoreapp2.0\BusinessLayer.dll
 D:\Users\Jon\Projects\Visual Studio Projects\LostChildApp\LostChildApp\BusinessLayer\obj\Debug\netcoreapp2.0\BusinessLayer.pdb
+D:\Users\Jon\Projects\Visual Studio Projects\LostChildApp\LostChildApp\BusinessLayer\obj\Debug\netcoreapp2.0\BusinessLayer.csprojAssemblyReference.cache
