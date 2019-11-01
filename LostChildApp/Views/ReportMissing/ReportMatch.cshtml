@@ -4,6 +4,8 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@using Common.ExtensionMethods
+
 <div class="container-fluid container-purple">
     <div class="row color-dark-purple">
         <div class="col-md-12 color-dark-purple px-5 py-4 text-center">
@@ -19,7 +21,7 @@
     </div>
     <div class="row">
         <div class="col-md-6 px-4 pb-4">
-            <button class="btn btn-lg btn-primary" type="button">Contact Other Party</button>
+            <a class="btn btn-lg btn-primary" href="tel:+1-@Model.ReporterPhoneNumber">Contact Other Party</a>
         </div>
     </div>
 </div>

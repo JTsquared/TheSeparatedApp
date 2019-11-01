@@ -80,6 +80,58 @@
         }
       }
     },
+    "D:\\Users\\Jon\\Projects\\Visual Studio Projects\\LostChildApp\\LostChildApp\\Common.ExtensionMethods\\Common.ExtensionMethods.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\Users\\Jon\\Projects\\Visual Studio Projects\\LostChildApp\\LostChildApp\\Common.ExtensionMethods\\Common.ExtensionMethods.csproj",
+        "projectName": "Common.ExtensionMethods",
+        "projectPath": "D:\\Users\\Jon\\Projects\\Visual Studio Projects\\LostChildApp\\LostChildApp\\Common.ExtensionMethods\\Common.ExtensionMethods.csproj",
+        "packagesPath": "C:\\Users\\blue_\\.nuget\\packages\\",
+        "outputPath": "D:\\Users\\Jon\\Projects\\Visual Studio Projects\\LostChildApp\\LostChildApp\\Common.ExtensionMethods\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\blue_\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp2.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp2.0": {
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp2.0": {
+          "dependencies": {
+            "Microsoft.NETCore.App": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.0.0, )",
+              "autoReferenced": true
+            }
+          },
+          "imports": [
+            "net461"
+          ],
+          "assetTargetFallback": true,
+          "warn": true
+        }
+      }
+    },
     "D:\\Users\\Jon\\Projects\\Visual Studio Projects\\LostChildApp\\LostChildApp\\LostChildApp\\LostChildApp.csproj": {
       "version": "1.0.0",
       "restore": {
@@ -108,6 +160,9 @@
             "projectReferences": {
               "D:\\Users\\Jon\\Projects\\Visual Studio Projects\\LostChildApp\\LostChildApp\\BusinessLayer\\BusinessLayer.csproj": {
                 "projectPath": "D:\\Users\\Jon\\Projects\\Visual Studio Projects\\LostChildApp\\LostChildApp\\BusinessLayer\\BusinessLayer.csproj"
+              },
+              "D:\\Users\\Jon\\Projects\\Visual Studio Projects\\LostChildApp\\LostChildApp\\Common.ExtensionMethods\\Common.ExtensionMethods.csproj": {
+                "projectPath": "D:\\Users\\Jon\\Projects\\Visual Studio Projects\\LostChildApp\\LostChildApp\\Common.ExtensionMethods\\Common.ExtensionMethods.csproj"
               }
             }
           }
@@ -137,6 +192,10 @@
             "WebEssentials.AspNetCore.PWA": {
               "target": "Package",
               "version": "[1.0.59, )"
+            },
+            "WebPush-NetCore": {
+              "target": "Package",
+              "version": "[1.0.2, )"
             },
             "font-awesome": {
               "target": "Package",

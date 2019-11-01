@@ -1,0 +1,9 @@
+D:\Users\Jon\Projects\Visual Studio Projects\LostChildApp\LostChildApp\Common.ExtensionMethods\bin\Debug\netcoreapp2.0\Common.ExtensionMethods.deps.json
+D:\Users\Jon\Projects\Visual Studio Projects\LostChildApp\LostChildApp\Common.ExtensionMethods\bin\Debug\netcoreapp2.0\Common.ExtensionMethods.dll
+D:\Users\Jon\Projects\Visual Studio Projects\LostChildApp\LostChildApp\Common.ExtensionMethods\bin\Debug\netcoreapp2.0\Common.ExtensionMethods.pdb
+D:\Users\Jon\Projects\Visual Studio Projects\LostChildApp\LostChildApp\Common.ExtensionMethods\obj\Debug\netcoreapp2.0\Common.ExtensionMethods.csproj.CoreCompileInputs.cache
+D:\Users\Jon\Projects\Visual Studio Projects\LostChildApp\LostChildApp\Common.ExtensionMethods\obj\Debug\netcoreapp2.0\Common.ExtensionMethods.AssemblyInfoInputs.cache
+D:\Users\Jon\Projects\Visual Studio Projects\LostChildApp\LostChildApp\Common.ExtensionMethods\obj\Debug\netcoreapp2.0\Common.ExtensionMethods.AssemblyInfo.cs
+D:\Users\Jon\Projects\Visual Studio Projects\LostChildApp\LostChildApp\Common.ExtensionMethods\obj\Debug\netcoreapp2.0\Common.ExtensionMethods.dll
+D:\Users\Jon\Projects\Visual Studio Projects\LostChildApp\LostChildApp\Common.ExtensionMethods\obj\Debug\netcoreapp2.0\Common.ExtensionMethods.pdb
+D:\Users\Jon\Projects\Visual Studio Projects\LostChildApp\LostChildApp\Common.ExtensionMethods\obj\Debug\netcoreapp2.0\Common.ExtensionMethods.csprojAssemblyReference.cache

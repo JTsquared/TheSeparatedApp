@@ -33,13 +33,32 @@ namespace LostChildApp.Controllers
         public IActionResult Index()
         {
             ReportMissingMsg missingReport = new ReportMissingMsg();
-            //return View(missingReport);
             return View(missingReport);
         }
+
+        //public IActionResult Index(ReportMissingMsg model)
+        //{
+        //    if (model == null)
+        //    {
+        //        ReportMissingMsg msg = new ReportMissingMsg();
+        //        model = msg;
+        //    }
+        //    return View(model);
+        //}
 
         [HttpPost]
         public IActionResult FamilyReport(ReportMissingMsg model, IFormFile imageFile2, string useMobileLocation)
         {
+
+            //if(model.PushNotificationKey != null)
+            //{
+            //    return View("ReportMatch", new ReportMissingMsgAdaptor(model));
+            //}
+            //else
+            //{
+            //    return View("ReportAdded");
+            //}
+
             bool canSendReporterLocation = false;
             model.Reporter.ContactType = ContactType.Family;
 
@@ -114,6 +133,7 @@ namespace LostChildApp.Controllers
                             mobileHelper.SendMatchNotification(model, matchedReport, canSendReporterLocation);
                             //TODO: rather than have an "OfferToCallReporter" method instead change to "CallReporter" method and move method call into another controller and/or action from with which the user is redirected in order to offer to connect them to the other party
                             mobileHelper.OfferToCallReporter(matchedReport.ReporterPhoneNumber);
+                            imageService.RemoveImagesFromStorage(model.DependentImgURL, matchedReport.DependentImgURL);
                             mq.RemoveMessageFromStorage(matchedReport);
                             return matchedReport;
                         }
@@ -123,7 +143,7 @@ namespace LostChildApp.Controllers
                     mq.AddMessageToStorage(new ReportMissingMsgAdaptor(model));
                 }
 
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     //TODO: create logger to log exception messages and redirect to user-friendly error page.
                     return matchedReport;
@@ -131,5 +151,20 @@ namespace LostChildApp.Controllers
             }
             return matchedReport;
         }
+
+        //[HttpPost]
+        //public IActionResult RegisterUserForPushNotifications(ReportMissingMsg msg, string key, string endpoint, string authSecret)
+        //{
+        //    //ReportMissingMsg msg = new ReportMissingMsg();
+        //    msg.PushNotificationKey = key;
+        //    msg.PushNotificationEndpoint = endpoint;
+        //    msg.PushNotificationAuthSecret = authSecret;
+        //    //return View(msg);
+
+        //    TryUpdateModelAsync(msg);
+        //    return RedirectToAction("Index", msg);
+
+        //    //return RedirectToAction("Index", msg);
+        //}
     }
 }

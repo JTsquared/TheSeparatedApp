@@ -16,5 +16,7 @@ namespace BusinessLayer.Models
         List<byte[]> GetImagesFromStorage(string[] imageLocation);
 
         byte[] GetImageFromStorage(string imageLocation);
+
+        int RemoveImagesFromStorage(params string[] imageURLs);
     }
 }

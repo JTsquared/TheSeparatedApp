@@ -3,6 +3,8 @@
     ViewData["Title"] = "ReportMissing";
 }
 
+@using BusinessLayer.Models
+
 <div class="container-fluid container-purple">
     <div class="row">
         <div class="col-md-12">
@@ -81,6 +83,11 @@
                                 <input asp-for="Coordinates.Latitude" type="hidden" class="userLat" id="userLatitude1" />
                                 <input asp-for="Coordinates.Longitude" type="hidden" class="userLong" id="userLongitude1" />
                             </div>
+                            <div class="form-group">
+                                <input asp-for="PushNotificationKey" type="hidden" class="pushKey" id="pushKey" />
+                                    <input asp-for="PushNotificationEndpoint" type="hidden" class="pushEndpoint" id="pushEndpoint" />
+                                    <input asp-for="PushNotificationAuthSecret" type="hidden" class="pushAuthSecret" id="pushAuthSecret" />
+                            </div>
                             <button type="submit" class="btn px-5 color-dark-purple my-4">Submit</button>
                         </div>
                     </div>
@@ -132,7 +139,12 @@
                                 <input asp-for="Coordinates.Latitude" type="hidden" class="userLat" id="userLatitude2" />
                                 <input asp-for="Coordinates.Longitude" type="hidden" class="userLong" id="userLongitude2" />
                             </div>
-                            <button type="submit" class="btn px-5 color-dark-purple my-4">Submit</button>
+                            <div class="form-group">
+                                <input asp-for="PushNotificationKey" type="hidden" class="pushKey" id="pushKey2" />
+                                <input asp-for="PushNotificationEndpoint" type="hidden" class="pushEndpoint" id="pushEndpoint2" />
+                                <input asp-for="PushNotificationAuthSecret" type="hidden" class="pushAuthSecret" id="pushAuthSecret2" />
+                            </div>
+                            <button id="test" type="submit" class="btn px-5 color-dark-purple my-4">Submit</button>
                             @*//TODO: Add server side validation including a check to make sure location permission is given.*@
 
                             <p id="demo"></p>
@@ -148,9 +160,11 @@
 @section Scripts {
     <script>
         $(document).ready(function () {
+
             navigator.geolocation.getCurrentPosition(saveCoordinatesToModel, positionError);
 
             function positionError(position) {
+                //TODO: If there is an error in collecting the user's coordinates notify the user that their location is required to use the app
                 alert("Oops! Error: " + position.code);
             }
 
@@ -161,9 +175,93 @@
                 $('#userLatitude1')[0].value = coordinates.latitude;
                 $('#userLongitude2')[0].value = coordinates.longitude;
                 $('#userLongitude1')[0].value = coordinates.longitude;
-                alert("coordinates: " + coordinates.latitude + ", " + coordinates.longitude);
+                subscribeToPushNotifications();
+            }
+
+            function urlBase64ToUint8Array(base64String) {
+
+                const padding = '='.repeat((4 - base64String.length % 4) % 4);
+                const base64 = (base64String + padding)
+                    .replace(/\-/g, '+')
+                    .replace(/_/g, '/');
+                const rawData = window.atob(base64);
+                const outputArray = new Uint8Array(rawData.length);
+                for (let i = 0; i < rawData.length; ++i) {
+                    outputArray[i] = rawData.charCodeAt(i);
+                }
+                alert(outputArray);
+                return outputArray;
+            }
+
+            function subscribeToPushNotifications() {
+
+                var vapidPublicKey = "BIXasYbLY5eeDTBuObiyHW52XToOuHeWtBK8hLpm8s26GazP0JFKnV-5xkwX3FOKn1ZJNyK-SJd1BlNnRmGuNBI";
+
+                if (pushIsSupported) {
+                    alert("push is supported");
+                }
+                else {
+                    alert("push is NOT supported");
+                }
+
+                navigator.serviceWorker.ready.then(ServiceWorkerRegistration => {
+                    ServiceWorkerRegistration.pushManager.getSubscription()
+                        .then(PushSubscription => {
+
+                            //DELETE THIS LINE BELOW. USED TEMPORARILY TO TEST REGISTERING OF PUSH NOTIFICATIONS
+                            //PushSubscription.unsubscribe().then(function () {
+                            //    alert("unsubscribed");
+                            //    return;
+                            //});
+
+                            if (PushSubscription) {
+                                const rawKey = PushSubscription.getKey ? PushSubscription.getKey('p256dh') : '';
+                                const key = rawKey ? btoa(String.fromCharCode.apply(null, new Uint8Array(rawKey))) : '';
+                                const rawAuthSecret = PushSubscription.getKey ? PushSubscription.getKey('auth') : '';
+                                const authSecret = rawAuthSecret ? btoa(String.fromCharCode.apply(null, new Uint8Array(rawAuthSecret))) : '';
+                                const endpoint = PushSubscription.endpoint;
+
+                                $('#pushKey')[0].value = key;
+                                $('#pushKey2')[0].value = key;
+                                $('#pushEndpoint')[0].value = endpoint;
+                                $('#pushEndpoint2')[0].value = endpoint;
+                                $('#pushAuthSecret')[0].value = authSecret;
+                                $('#pushAuthSecret2')[0].value = authSecret;
+                                return;
+                            }
+
+                            return ServiceWorkerRegistration.pushManager.subscribe({
+                                userVisibleOnly: true,
+                                applicationServerKey: urlBase64ToUint8Array(vapidPublicKey)
+                            }).then(PushSubscription => {
+                                const rawKey = PushSubscription.getKey ? PushSubscription.getKey('p256dh') : '';
+                                const key = rawKey ? btoa(String.fromCharCode.apply(null, new Uint8Array(rawKey))) : '';
+                                const rawAuthSecret = PushSubscription.getKey ? PushSubscription.getKey('auth') : '';
+                                const authSecret = rawAuthSecret ? btoa(String.fromCharCode.apply(null, new Uint8Array(rawAuthSecret))) : '';
+                                const endpoint = PushSubscription.endpoint;
+
+                                $('#pushKey')[0].value = key;
+                                $('#pushKey2')[0].value = key;
+                                $('#pushEndpoint')[0].value = endpoint;
+                                $('#pushEndpoint2')[0].value = endpoint;
+                                $('#pushAuthSecret')[0].value = authSecret;
+                                $('#pushAuthSecret2')[0].value = authSecret;
+
+                            });
+                        });
+                })
+            }
+
+            function pushIsSupported() {
+                if (('serviceWorker' in navigator) && ('PushManager' in window)) {
+                    return true;
+                }
+                else {
+                    return false;
+                }
             }
         })
+
     </script>
 
     <script>

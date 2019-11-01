@@ -11,6 +11,10 @@ namespace BusinessLayer.Models
         public Contact Reporter { get; set; }
         public Coordinates Coordinates { get; set; }
 
+        public string PushNotificationKey { get; set; }
+        public string PushNotificationEndpoint { get; set; }
+        public string PushNotificationAuthSecret { get; set; }
+
         public ReportMissingMsg() { }
 
         public ReportMissingMsg(string dependentImgURL, Contact reporter)

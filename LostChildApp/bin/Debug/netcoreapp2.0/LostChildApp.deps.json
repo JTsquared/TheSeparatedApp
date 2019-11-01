@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v2.0",
-    "signature": "63d51c51783cd0db3ee832a6aac0c9a1ef34ed32"
+    "signature": "1bc0ef4e4b6b591b21d08cf0cd365fe8d1ce807c"
   },
   "compilationOptions": {
     "defines": [
@@ -25,10 +25,12 @@
       "LostChildApp/1.0.0": {
         "dependencies": {
           "BusinessLayer": "1.0.0",
+          "Common.ExtensionMethods": "1.0.0",
           "Microsoft.AspNetCore.All": "2.0.6",
           "Microsoft.NETCore.App": "2.0.0",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "2.0.2",
           "WebEssentials.AspNetCore.PWA": "1.0.59",
+          "WebPush-NetCore": "1.0.2",
           "font-awesome": "4.7.0",
           "popper.js": "1.14.3"
         },
@@ -2507,6 +2509,17 @@
         }
       },
       "popper.js/1.14.3": {},
+      "Portable.BouncyCastle/1.8.1.2": {
+        "dependencies": {
+          "NETStandard.Library": "2.0.1"
+        },
+        "runtime": {
+          "lib/netstandard1.3/BouncyCastle.Crypto.dll": {}
+        },
+        "compile": {
+          "lib/netstandard1.3/BouncyCastle.Crypto.dll": {}
+        }
+      },
       "Remotion.Linq/2.1.1": {
         "dependencies": {
           "System.Collections": "4.3.0",
@@ -3996,6 +4009,19 @@
           "lib/netstandard2.0/WebEssentials.AspNetCore.Pwa.dll": {}
         }
       },
+      "WebPush-NetCore/1.0.2": {
+        "dependencies": {
+          "Microsoft.NETCore.App": "2.0.0",
+          "Newtonsoft.Json": "12.0.2",
+          "Portable.BouncyCastle": "1.8.1.2"
+        },
+        "runtime": {
+          "lib/netcoreapp1.0/WebPush.NetCore.dll": {}
+        },
+        "compile": {
+          "lib/netcoreapp1.0/WebPush.NetCore.dll": {}
+        }
+      },
       "WindowsAzure.Storage/9.3.3": {
         "dependencies": {
           "NETStandard.Library": "2.0.1",
@@ -4022,6 +4048,14 @@
         },
         "compile": {
           "BusinessLayer.dll": {}
+        }
+      },
+      "Common.ExtensionMethods/1.0.0": {
+        "runtime": {
+          "Common.ExtensionMethods.dll": {}
+        },
+        "compile": {
+          "Common.ExtensionMethods.dll": {}
         }
       },
       "Microsoft.NETCore.App/2.0.0": {
@@ -5490,6 +5524,13 @@
       "path": "popper.js/1.14.3",
       "hashPath": "popper.js.1.14.3.nupkg.sha512"
     },
+    "Portable.BouncyCastle/1.8.1.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-G0pWrYwtjjiyka+twqqphegc4ddDWskvf2uWu2YiAUNdaAz0UYa/eXBlt+xjafby5Opa6J1ySw5MPezwiGi9aQ==",
+      "path": "portable.bouncycastle/1.8.1.2",
+      "hashPath": "portable.bouncycastle.1.8.1.2.nupkg.sha512"
+    },
     "Remotion.Linq/2.1.1": {
       "type": "package",
       "serviceable": true,
@@ -6365,6 +6406,13 @@
       "path": "webessentials.aspnetcore.pwa/1.0.59",
       "hashPath": "webessentials.aspnetcore.pwa.1.0.59.nupkg.sha512"
     },
+    "WebPush-NetCore/1.0.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-PsDKUZdvWPOlVE5rPs41lBSKhg3Ley2YikDdIXko5tGH3jB1MQX//5xGdNafVccPJdAHA52dtVczYiDCkRYIuQ==",
+      "path": "webpush-netcore/1.0.2",
+      "hashPath": "webpush-netcore.1.0.2.nupkg.sha512"
+    },
     "WindowsAzure.Storage/9.3.3": {
       "type": "package",
       "serviceable": true,
@@ -6373,6 +6421,11 @@
       "hashPath": "windowsazure.storage.9.3.3.nupkg.sha512"
     },
     "BusinessLayer/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Common.ExtensionMethods/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

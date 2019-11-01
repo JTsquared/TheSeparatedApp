@@ -239,5 +239,10 @@ namespace BusinessLayer.Models
 
             return await Task.FromResult(blockBlob.Uri.Segments[2]);
         }
+
+        public int RemoveImagesFromStorage(params string[] imageURLs)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
