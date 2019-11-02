@@ -28,6 +28,7 @@ namespace LostFamily
             services.AddSingleton<IMessageRepository, MessageRepository>();
             services.AddSingleton<IImageService, ImageService>();
             services.AddSingleton<IMobileHelper, MobileHelper>();
+            services.Configure<VapidSettings>(Configuration.GetSection("VAPID"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

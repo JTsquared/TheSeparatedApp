@@ -189,15 +189,15 @@
                 for (let i = 0; i < rawData.length; ++i) {
                     outputArray[i] = rawData.charCodeAt(i);
                 }
-                alert(outputArray);
                 return outputArray;
             }
 
             function subscribeToPushNotifications() {
 
-                var vapidPublicKey = "BIXasYbLY5eeDTBuObiyHW52XToOuHeWtBK8hLpm8s26GazP0JFKnV-5xkwX3FOKn1ZJNyK-SJd1BlNnRmGuNBI";
+                var vapidPublicKey = '@(ViewBag.VapidPublicKey)';
 
                 if (pushIsSupported) {
+                    //TODO: rather than use alerts come up with another process
                     alert("push is supported");
                 }
                 else {

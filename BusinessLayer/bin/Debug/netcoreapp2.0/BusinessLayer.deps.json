@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v2.0",
-    "signature": "b209349b47452b94a8c787d3bc8a835339d04704"
+    "signature": "280dcea75386b025cb346e386939fea44aace8f3"
   },
   "compilationOptions": {},
   "targets": {
@@ -13,6 +13,7 @@
           "Microsoft.Azure.CognitiveServices.Vision.Face": "2.2.0-preview",
           "Microsoft.Azure.Storage.Blob": "11.0.1",
           "Newtonsoft.Json": "12.0.2",
+          "WebPush-NetCore": "1.0.2",
           "WindowsAzure.Storage": "9.3.3"
         },
         "runtime": {
@@ -108,6 +109,14 @@
       "Newtonsoft.Json/12.0.2": {
         "runtime": {
           "lib/netstandard2.0/Newtonsoft.Json.dll": {}
+        }
+      },
+      "Portable.BouncyCastle/1.8.1.2": {
+        "dependencies": {
+          "NETStandard.Library": "2.0.1"
+        },
+        "runtime": {
+          "lib/netstandard1.3/BouncyCastle.Crypto.dll": {}
         }
       },
       "runtime.debian.8-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {
@@ -644,6 +653,15 @@
           "System.Runtime": "4.3.0"
         }
       },
+      "WebPush-NetCore/1.0.2": {
+        "dependencies": {
+          "Newtonsoft.Json": "12.0.2",
+          "Portable.BouncyCastle": "1.8.1.2"
+        },
+        "runtime": {
+          "lib/netcoreapp1.0/WebPush.NetCore.dll": {}
+        }
+      },
       "WindowsAzure.Storage/9.3.3": {
         "dependencies": {
           "NETStandard.Library": "2.0.1",
@@ -744,6 +762,13 @@
       "sha512": "sha512-rTK0s2EKlfHsQsH6Yx2smvcTCeyoDNgCW7FEYyV01drPlh2T243PR2DiDXqtC5N4GDm4Ma/lkxfW5a/4793vbA==",
       "path": "newtonsoft.json/12.0.2",
       "hashPath": "newtonsoft.json.12.0.2.nupkg.sha512"
+    },
+    "Portable.BouncyCastle/1.8.1.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-G0pWrYwtjjiyka+twqqphegc4ddDWskvf2uWu2YiAUNdaAz0UYa/eXBlt+xjafby5Opa6J1ySw5MPezwiGi9aQ==",
+      "path": "portable.bouncycastle/1.8.1.2",
+      "hashPath": "portable.bouncycastle.1.8.1.2.nupkg.sha512"
     },
     "runtime.debian.8-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {
       "type": "package",
@@ -1087,6 +1112,13 @@
       "sha512": "sha512-LbSxKEdOUhVe8BezB/9uOGGppt+nZf6e1VFyw6v3DN6lqitm0OSn2uXMOdtP0M3W4iMcqcivm2J6UgqiwwnXiA==",
       "path": "system.threading.tasks/4.3.0",
       "hashPath": "system.threading.tasks.4.3.0.nupkg.sha512"
+    },
+    "WebPush-NetCore/1.0.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-PsDKUZdvWPOlVE5rPs41lBSKhg3Ley2YikDdIXko5tGH3jB1MQX//5xGdNafVccPJdAHA52dtVczYiDCkRYIuQ==",
+      "path": "webpush-netcore/1.0.2",
+      "hashPath": "webpush-netcore.1.0.2.nupkg.sha512"
     },
     "WindowsAzure.Storage/9.3.3": {
       "type": "package",

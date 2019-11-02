@@ -9,6 +9,8 @@ using Microsoft.AspNetCore.Mvc;
 using System.Web;
 using LostChildApp.Models;
 using BusinessLayer.Models;
+using Microsoft.Extensions.Options;
+using WebPush;
 
 namespace LostChildApp.Controllers
 {
@@ -19,20 +21,24 @@ namespace LostChildApp.Controllers
         private readonly IImageService imageService;
         private readonly IMobileHelper mobileHelper;
 
+        private readonly VapidSettings _vapidSettings;
+
         private const double SEARCH_RADIUS_IN_MILES = 5.0d;
 
-        public ReportMissingController(IHostingEnvironment hostingEnvironment, IMessageRepository mq, IImageService imageService, IMobileHelper mobileHelper)
+        public ReportMissingController(IHostingEnvironment hostingEnvironment, IMessageRepository mq, IImageService imageService, IMobileHelper mobileHelper, IOptions<VapidSettings> vapidSettings)
         {
             this.hostingEnvironment = hostingEnvironment;
             this.mq = mq;
             this.imageService = imageService;
             this.mobileHelper = mobileHelper;
-
+            this._vapidSettings = vapidSettings.Value;
         }
 
         public IActionResult Index()
         {
             ReportMissingMsg missingReport = new ReportMissingMsg();
+            ViewBag.VapidPublicKey = _vapidSettings.PublicKey;
+
             return View(missingReport);
         }
 
@@ -151,6 +157,8 @@ namespace LostChildApp.Controllers
             }
             return matchedReport;
         }
+
+
 
         //[HttpPost]
         //public IActionResult RegisterUserForPushNotifications(ReportMissingMsg msg, string key, string endpoint, string authSecret)
