@@ -1,16 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Web;
-using LostChildApp.Models;
 using BusinessLayer.Models;
 using Microsoft.Extensions.Options;
-using WebPush;
 
 namespace LostChildApp.Controllers
 {
@@ -20,24 +15,28 @@ namespace LostChildApp.Controllers
         private readonly IMessageRepository mq;
         private readonly IImageService imageService;
         private readonly IMobileHelper mobileHelper;
+        private readonly IVapidSettings vapidSettings;
 
-        private readonly VapidSettings _vapidSettings;
+        //private readonly IPushNotificationService pushNotificationService;
+        private readonly IPushNotificationService pushNotificationService;
 
         private const double SEARCH_RADIUS_IN_MILES = 5.0d;
 
-        public ReportMissingController(IHostingEnvironment hostingEnvironment, IMessageRepository mq, IImageService imageService, IMobileHelper mobileHelper, IOptions<VapidSettings> vapidSettings)
+        public ReportMissingController(IHostingEnvironment hostingEnvironment, IMessageRepository mq, IImageService imageService, IMobileHelper mobileHelper, IOptions<VapidSettings> vapidSettings, IPushNotificationService pushNotificationService)
         {
             this.hostingEnvironment = hostingEnvironment;
             this.mq = mq;
             this.imageService = imageService;
             this.mobileHelper = mobileHelper;
-            this._vapidSettings = vapidSettings.Value;
+            this.vapidSettings = vapidSettings.Value;
+            this.pushNotificationService = pushNotificationService;
+            
         }
 
         public IActionResult Index()
         {
             ReportMissingMsg missingReport = new ReportMissingMsg();
-            ViewBag.VapidPublicKey = _vapidSettings.PublicKey;
+            ViewBag.VapidPublicKey = vapidSettings.PublicKey;
 
             return View(missingReport);
         }

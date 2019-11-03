@@ -6,4 +6,3 @@ D:\Users\Jon\Projects\Visual Studio Projects\LostChildApp\LostChildApp\Common.Ex
 D:\Users\Jon\Projects\Visual Studio Projects\LostChildApp\LostChildApp\Common.ExtensionMethods\obj\Debug\netcoreapp2.0\Common.ExtensionMethods.AssemblyInfo.cs
 D:\Users\Jon\Projects\Visual Studio Projects\LostChildApp\LostChildApp\Common.ExtensionMethods\obj\Debug\netcoreapp2.0\Common.ExtensionMethods.dll
 D:\Users\Jon\Projects\Visual Studio Projects\LostChildApp\LostChildApp\Common.ExtensionMethods\obj\Debug\netcoreapp2.0\Common.ExtensionMethods.pdb
-D:\Users\Jon\Projects\Visual Studio Projects\LostChildApp\LostChildApp\Common.ExtensionMethods\obj\Debug\netcoreapp2.0\Common.ExtensionMethods.csprojAssemblyReference.cache

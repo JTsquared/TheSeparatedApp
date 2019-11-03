@@ -1,16 +1,19 @@
-﻿using System;
+﻿using BusinessLayer.Models;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace BusinessLayer.Models
 {
-    public class PushNotificationModel
+    public class PushNotification : IPushSubscription
     {
         public string Endpoint { get; set; }
         public string Key { get; set; }
         public string AuthSecret { get; set; }
 
-        PushNotificationModel(string endpoint, string key, string authSecret)
+        public PushNotification() { }
+
+        PushNotification(string endpoint, string key, string authSecret)
         {
             this.Endpoint = endpoint;
             this.Key = key;
