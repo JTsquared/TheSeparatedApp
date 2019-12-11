@@ -9,7 +9,7 @@
 }
 
 .container-purple {
-    background-image: linear-gradient(to top right, rgba(56, 3, 103), white);
+    background-image: linear-gradient(to top right, rgb(56, 3, 103), white);
 }
 
 .color-purple {
@@ -129,6 +129,11 @@ tab-pane.active {
 .btn-pay {
     width: 50%;
     margin-bottom: 0em;
+}
+
+.h4-font {
+    font-size: 20px;
+    font-weight: bold;
 }
 
 html {

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace BusinessLayer.Models
 {
-    public interface IPushNotificationService
+    public interface IPushNotificationService : INotificationService
     {
         void SetVapidSettings(IVapidSettings vapidSettings);
         void SetVapidSettings(string subject, string privateKey, string publicKey);

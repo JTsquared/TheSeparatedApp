@@ -10,6 +10,7 @@ namespace BusinessLayer.Models
         public string DependentImgURL { get; set; }
         public Contact Reporter { get; set; }
         public Coordinates Coordinates { get; set; }
+        public bool ShareLocation { get; set; }
 
         public string PushNotificationKey { get; set; }
         public string PushNotificationEndpoint { get; set; }

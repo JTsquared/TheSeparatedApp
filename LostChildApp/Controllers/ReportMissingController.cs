@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using BusinessLayer.Models;
 using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
+using System.Net;
 
 namespace LostChildApp.Controllers
 {
@@ -14,22 +16,22 @@ namespace LostChildApp.Controllers
         private readonly IHostingEnvironment hostingEnvironment;
         private readonly IMessageRepository mq;
         private readonly IImageService imageService;
-        private readonly IMobileHelper mobileHelper;
+        //private readonly IMobileHelper mobileHelper;
         private readonly IVapidSettings vapidSettings;
 
-        //private readonly IPushNotificationService pushNotificationService;
         private readonly IPushNotificationService pushNotificationService;
+        //private readonly IPushNotificationService pushNotificationService;
 
         private const double SEARCH_RADIUS_IN_MILES = 5.0d;
 
-        public ReportMissingController(IHostingEnvironment hostingEnvironment, IMessageRepository mq, IImageService imageService, IMobileHelper mobileHelper, IOptions<VapidSettings> vapidSettings, IPushNotificationService pushNotificationService)
+        public ReportMissingController(IHostingEnvironment hostingEnvironment, IMessageRepository mq, IImageService imageService, IOptions<VapidSettings> vapidSettings, IPushSubscription pushSubscription)//, IPushNotificationService pushNotificationService)
         {
             this.hostingEnvironment = hostingEnvironment;
             this.mq = mq;
             this.imageService = imageService;
-            this.mobileHelper = mobileHelper;
+            //this.mobileHelper = mobileHelper;
             this.vapidSettings = vapidSettings.Value;
-            this.pushNotificationService = pushNotificationService;
+            this.pushNotificationService = new PushNotificationService(this.vapidSettings, pushSubscription);
             
         }
 
@@ -54,6 +56,12 @@ namespace LostChildApp.Controllers
         [HttpPost]
         public IActionResult FamilyReport(ReportMissingMsg model, IFormFile imageFile2, string useMobileLocation)
         {
+            //BEGIN TEST DATA------------------------------------------------------------------
+
+            model.DependentImgURL = "IMG_20190302_121422.jpg";
+            bool test = SendMatchNotification(model, new ReportMissingMsgAdaptor(model));
+
+            //END TEST DATA--------------------------------------------------------------------
 
             //if(model.PushNotificationKey != null)
             //{
@@ -64,44 +72,47 @@ namespace LostChildApp.Controllers
             //    return View("ReportAdded");
             //}
 
-            bool canSendReporterLocation = false;
             model.Reporter.ContactType = ContactType.Family;
 
             //the reporter's mobile location is required but if the below checkbox on the post form is checked they they have given permission to send their location to the other party
-            if (useMobileLocation == "on")
-            {
-                canSendReporterLocation = true;
-            }
+            model.ShareLocation = useMobileLocation == "on" ? true : false;
 
-            model.DependentImgURL = imageService.SaveImageToStorage(imageFile2);
+            return View("ReportAdded");
 
-            ReportMissingMsgAdaptor matchedReport = GetMissingReportMatch(model, canSendReporterLocation);
+            //model.DependentImgURL = imageService.SaveImageToStorage(imageFile2);
 
-            if (matchedReport != null)
-            {
-                return View("ReportMatch", matchedReport);
-            }
-            else
-            {
-                return View("ReportAdded");
-            }
+            //ReportMissingMsgAdaptor matchedReport = GetMissingReportMatch(model);
+
+            //if (matchedReport != null)
+            //{
+            //    bool matchNotificationSent = SendMatchNotification(model, matchedReport);
+            //    if (matchNotificationSent)
+            //    {
+            //        ViewBag.SentNotificationStatus = "Success";
+            //    }
+            //    else
+            //    {
+            //        ViewBag.SentNotificationStatus = "Failure";
+            //    }
+            //    return View("ReportMatch", matchedReport);
+            //}
+            //else
+            //{
+            //    return View("ReportAdded");
+            //}
         }
 
         [HttpPost]
         public IActionResult NonFamilyReport(ReportMissingMsg model, IFormFile imageFile, string useMobileLocation)
         {
-            bool canSendReporterLocation = false;
             model.Reporter.ContactType = ContactType.NonFamily;
 
             //the reporter's mobile location is required but if the below checkbox on the post form is checked they they have given permission to send their location to the other party
-            if (useMobileLocation == "on")
-            {
-                canSendReporterLocation = true;
-            }
+            model.ShareLocation = useMobileLocation == "on" ? true : false;
 
             model.DependentImgURL = imageService.SaveImageToStorage(imageFile);
 
-            ReportMissingMsgAdaptor matchedReport = GetMissingReportMatch(model, canSendReporterLocation);
+            ReportMissingMsgAdaptor matchedReport = GetMissingReportMatch(model);
 
             if (matchedReport != null)
             {
@@ -113,7 +124,17 @@ namespace LostChildApp.Controllers
             }
         }
 
-        private ReportMissingMsgAdaptor GetMissingReportMatch(ReportMissingMsg model, bool canSendReporterLocation)
+        public IActionResult GetImageFromURI(string uri)
+        {
+            var img = imageService.GetImageFromStorage(uri);
+            return File(img, "image/png");
+            //string imageBase64Data = Convert.ToBase64String(img);
+            //string imageDataURL = string.Format("data:image/png;base64,{0}", imageBase64Data);
+            //return imageDataURL;
+            //<img src="@Url.Action("GetCustIdBarCode", new { code = customer_code })" />
+        }
+
+        private ReportMissingMsgAdaptor GetMissingReportMatch(ReportMissingMsg model)
         {
             ReportMissingMsgAdaptor matchedReport = null;
 
@@ -135,9 +156,7 @@ namespace LostChildApp.Controllers
                         {
                             //if match found, use the index of the matched report to retrieve the entire report object
                             matchedReport = possibleMatches[imageMatchIndex];
-                            mobileHelper.SendMatchNotification(model, matchedReport, canSendReporterLocation);
-                            //TODO: rather than have an "OfferToCallReporter" method instead change to "CallReporter" method and move method call into another controller and/or action from with which the user is redirected in order to offer to connect them to the other party
-                            mobileHelper.OfferToCallReporter(matchedReport.ReporterPhoneNumber);
+                            //TODO: rather than removing the image and report immediately move this call to action within ReportMatch controller after user has confirmed match is correct.
                             imageService.RemoveImagesFromStorage(model.DependentImgURL, matchedReport.DependentImgURL);
                             mq.RemoveMessageFromStorage(matchedReport);
                             return matchedReport;
@@ -157,6 +176,55 @@ namespace LostChildApp.Controllers
             return matchedReport;
         }
 
+        private bool SendMatchNotification(ReportMissingMsg model, ReportMissingMsgAdaptor matchedReport)
+        {
+            INotificationService notificationService;
+            bool wasNotificationSent = false;
+
+            try
+            {
+                //TODO: after MVP consider updating reportMissing UI to give user options to select which type of notification service they prefer
+                //configure push notification service
+
+                pushNotificationService.SetVapidSettings(vapidSettings);
+                pushNotificationService.SetPushSubscription(matchedReport.ReporterEndpoint, matchedReport.ReporterKey, matchedReport.ReporterAuthSecret);
+
+                //TODO: INotificationService preferredNotificationService = NotificationServiceFactory.Create(model.PreferredNotificationServiceType);
+                //preferredNotificationService.SendReportMatchNotification(x => new { "test, model.DependentImgURL" });
+
+                //register push notification service by default
+                notificationService = new NotificationService(pushNotificationService);
+
+                //register additional notification serivce types in case push notification service fails.
+                //TODO: create additional notification service types below and have the view manage when to collect info to create these types (get permission for text and collect email address)
+                //notificationService.AddNotificationService(textNotificationService);
+                //notificationService.AddNotificationService(emailNotificationService);
+
+                //notificationService iterates through each registered service type to attempt to send notification until the notification is successfully sent 
+                wasNotificationSent = notificationService.SendReportMatchNotification(new Notification("test", "test", model));
+            }
+            catch(Exception e)
+            {
+                //TODO: create logger to log push notification failure
+            }
+
+            return wasNotificationSent;
+        }
+
+        public IActionResult ReportMatch(string notificationTag)
+        {
+            ReportMissingMsg model = null;
+            //var decodedModel = WebUtility.UrlDecode(notificationTag);
+            //model = JsonConvert.DeserializeObject<ReportMissingMsg>(decodedModel);
+            model = JsonConvert.DeserializeObject<ReportMissingMsg>(notificationTag);
+            return View("ReportMatch", new ReportMissingMsgAdaptor(model));
+        }
+
+        [HttpPost]
+        public IActionResult ReportMatch()
+        {
+            return View("ReportMatch");
+        }
 
 
         //[HttpPost]

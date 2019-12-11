@@ -44,5 +44,7 @@ namespace BusinessLayer.Models
         }
 
         public abstract bool SendPushNotification(INotification notification);
+
+        public abstract bool SendReportMatchNotification(INotification notification);
     }
 }

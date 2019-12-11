@@ -62,5 +62,11 @@ namespace BusinessLayer.Models
 
             return 0;   
         }
+
+        public override bool SendReportMatchNotification(INotification notification)
+        {
+            bool notificationSent = SendPushNotification(notification);
+            return notificationSent;
+        }
     }
 }

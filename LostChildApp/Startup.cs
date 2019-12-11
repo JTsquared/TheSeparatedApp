@@ -5,6 +5,9 @@ using System.Threading.Tasks;
 using BusinessLayer.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Rewrite;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -23,18 +26,22 @@ namespace LostFamily
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
-            services.AddProgressiveWebApp();
-            services.AddSingleton<IMessageRepository, MessageRepository>();
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddSingleton<IConfiguration>(Configuration);
+            //services.AddProgressiveWebApp();
+            services.AddSingleton<IMessageRepository, AzureTableMessageRepository>();
             services.AddSingleton<IImageService, ImageService>();
-            services.AddSingleton<IMobileHelper, MobileHelper>();
-            services.Configure<VapidSettings>(Configuration.GetSection("VAPID"));
+            //services.AddSingleton<IMobileHelper, MobileHelper>();
             services.AddSingleton<IVapidSettings, VapidSettings>();
+            services.Configure<VapidSettings>(Configuration.GetSection("VAPID"));
+            
             services.AddSingleton<IPushSubscription, PushNotification>();
 
             //services.AddSingleton<IPushNotificationService>();
             //services.AddSingleton<PushNotificationService>();
-            services.AddTransient<IPushNotificationService, PushNotificationService>();
+
+            services.AddSingleton<IPushNotificationService, PushNotificationService>();
+            //services.AddSingleton<IPushNotificationService, PushNotificationService>(ServiceProvider => new PushNotificationService(ServiceProvider.GetService<VapidSettings>(), ServiceProvider.GetService<PushNotification>()));
 
             //services.AddSingleton<PushNotificationService>(serviceProvider => new PushNotificationService(serviceProvider.GetService<VapidSettings>(), serviceProvider.GetService<PushNotification>()));
 
@@ -46,6 +53,8 @@ namespace LostFamily
             //    return new PushNotificationService(serviceProvider.GetService<VapidSettings>(), serviceProvider.GetService<IPushNotification>());
             //});
             //services.AddSingleton<IPushNotificationService>(serviceProvider => services.AddSingleton<PushNotificationService>());
+
+            //services.Configure<MvcOptions>(options => options.Filters.Add(new RequireHttpsAttribute()));
             
         }
 
@@ -61,9 +70,14 @@ namespace LostFamily
             else
             {
                 app.UseExceptionHandler("/Home/Error");
+
+                //added to force https request because they are required for PWAs to work
+                var options = new RewriteOptions().AddRedirectToHttps();
+                app.UseRewriter(options);
             }
 
             app.UseStaticFiles();
+            app.UseCookiePolicy();
 
             app.UseMvc(routes =>
             {

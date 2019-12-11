@@ -8,14 +8,14 @@ using Newtonsoft.Json;
 
 namespace BusinessLayer.Models
 {
-    public class MessageRepository : IMessageRepository
+    public class AzureTableMessageRepository : IMessageRepository
     {
         private CloudStorageAccount _cloudStorageAccount;
         private CloudTableClient _cloudTableClient;
         private CloudTable _cloudTable;
         private IGeolocator _geolocator;
 
-        public MessageRepository()
+        public AzureTableMessageRepository()
         {
             _cloudStorageAccount = CloudStorageAccount.Parse("DefaultEndpointsProtocol=https;AccountName=theseparatedapptable;AccountKey=wG1nxodjz9Sgx12NSMKYjuaHvLUbAAiWXg+Y0ymQPpGldUv5GSpj/zLeEnXVPSx6L3kRU/amfUQUcKpjKljriw==;EndpointSuffix=core.windows.net");
             _cloudTableClient = _cloudStorageAccount.CreateCloudTableClient();
@@ -23,7 +23,7 @@ namespace BusinessLayer.Models
             _geolocator = new Geolocator();
         }
 
-        public MessageRepository(CloudStorageAccount cloudStorageAccount, CloudTableClient cloudTableClient, CloudTable cloudTable, IGeolocator geolocator)
+        public AzureTableMessageRepository(CloudStorageAccount cloudStorageAccount, CloudTableClient cloudTableClient, CloudTable cloudTable, IGeolocator geolocator)
         {
             _cloudStorageAccount = cloudStorageAccount;
             _cloudTableClient = cloudTableClient;

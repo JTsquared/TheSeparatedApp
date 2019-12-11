@@ -204,6 +204,8 @@
                     alert("push is NOT supported");
                 }
 
+                alert(navigator.serviceWorker.ready);
+
                 navigator.serviceWorker.ready.then(ServiceWorkerRegistration => {
                     ServiceWorkerRegistration.pushManager.getSubscription()
                         .then(PushSubscription => {
@@ -220,6 +222,8 @@
                                 const rawAuthSecret = PushSubscription.getKey ? PushSubscription.getKey('auth') : '';
                                 const authSecret = rawAuthSecret ? btoa(String.fromCharCode.apply(null, new Uint8Array(rawAuthSecret))) : '';
                                 const endpoint = PushSubscription.endpoint;
+
+                                alert('already subscribed: ' + key + ', authSecret=' + authSecret + ', endpoint=' + endpoint);
 
                                 $('#pushKey')[0].value = key;
                                 $('#pushKey2')[0].value = key;
@@ -239,6 +243,8 @@
                                 const rawAuthSecret = PushSubscription.getKey ? PushSubscription.getKey('auth') : '';
                                 const authSecret = rawAuthSecret ? btoa(String.fromCharCode.apply(null, new Uint8Array(rawAuthSecret))) : '';
                                 const endpoint = PushSubscription.endpoint;
+
+                                alert('new subscription: key=' + key + ', authSecret=' + authSecret + ', endpoint=' + endpoint);
 
                                 $('#pushKey')[0].value = key;
                                 $('#pushKey2')[0].value = key;

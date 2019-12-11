@@ -15,6 +15,10 @@ namespace BusinessLayer.Models
         public double Longitude { get; set; }
         public double Latitude { get; set; }
         public Geolocator Location { get; set; }
+        public bool ShareLocation { get; set; }
+        public string ReporterEndpoint { get; set; }
+        public string ReporterKey { get; set; }
+        public string ReporterAuthSecret { get; set; }
 
         public ReportMissingMsgAdaptor() { }
 
@@ -27,6 +31,10 @@ namespace BusinessLayer.Models
             ReporterContactType = (byte)report?.Reporter?.ContactType;
             Longitude = (double)report?.Coordinates?.Longitude;
             Latitude = (double)report?.Coordinates?.Latitude;
+            ShareLocation = (bool)report?.ShareLocation;
+            ReporterEndpoint = report?.PushNotificationEndpoint;
+            ReporterKey = report?.PushNotificationKey;
+            ReporterAuthSecret = report?.PushNotificationAuthSecret;
 
             this.PartitionKey = ReporterContactType.ToString();
             this.RowKey = DependentImgURL;

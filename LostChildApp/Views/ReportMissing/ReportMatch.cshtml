@@ -16,12 +16,68 @@
     </div>
     <div class="row">
         <div class="col-md-12 px-4 my-4">
-            <strong>We have already sent a notification to the other party to let them know that the missing dependent was found and you will likely receive a call shortly but if you would like you may try to contact the other party first.</strong>
+            <h4><strong>We have already sent a notification to the other party to let them know that a match was found. You will likely receive a call soon but if you would like you may try to contact the other party first.</strong></h4>
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-6 px-4 pb-4">
-            <a class="btn btn-lg btn-primary" href="tel:+1-@Model.ReporterPhoneNumber">Contact Other Party</a>
+    <div class="pb-3">
+        <div class="row">
+            <div class="pl-3 pr-4 pb-2">
+                <h4>Report Details</h4>
+            </div>
+        </div>
+        <div class="bg-light">
+            <div class="row">
+                <div class="col-md-6 px-4 pb-4 h4-font">
+                    Reported By:
+                    @if (Model != null && !string.IsNullOrEmpty(Model.ReporterName))
+                    {
+                        <label asp-for="ReporterName">@Model.ReporterName</label>
+                    }
+                    else
+                    {
+                        <label asp-for="ReporterName">Unknown</label>
+                    }
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 px-4 pb-4 h4-font">
+                    Picture of Missing Dependent:
+                    <br />
+                    @if (Model != null && !string.IsNullOrEmpty(Model.DependentImgURL))
+                    {
+                        <img height="150" width="150" src="@Url.Action("GetImageFromURI", "ReportMissing", new { uri = @Model.DependentImgURL })" alt="" />
+                    }
+                    else
+                    {
+                        <img src="@Url.Content("~/images/android-chrome-192x192.png")" alt="" />
+                    }
+                </div>
+            </div>
+            <div class="matchConfirmationSection" style="display:none">
+                <div class="row">
+                    <div class="px-4 pb-4 h4-font">
+                        <font color="red">*Please confirm that this is the missing dependent</font>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3 pl-4 pb-4">
+                        <button type="button" class="btn btn-lg color-dark-purple px-4 py-4" id="matchConfirmed" onclick="showMatchConfirmationSection()">Yes this is the same person</button>
+                    </div>
+                    <div class="col-md-3 pb-4">
+                        <button type="button" class="btn btn-lg color-dark-purple px-4 py-4" id="matchRejected">No this is not the same person</button>
+                    </div>
+                </div>
+            </div>
+            <div class="contactNumberSection" style="display:none">
+                <div class="row">
+                    <div class="col-md-6 px-4 pt-5 pb-4">
+                        @if (Model != null && !string.IsNullOrEmpty(Model.ReporterPhoneNumber))
+                        {
+                            <a class="btn btn-lg btn-primary" href="tel:+1-@Model.ReporterPhoneNumber">Contact Other Party</a>
+                        }
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -30,6 +86,28 @@
     <script>
         $(document).ready(function () {
 
+            var reporterContactType = @Html.Raw(Json.Serialize(Model.ReporterContactType));
+
+            if (reporterContactType == 0) {
+                $('.matchConfirmationSection').show();
+            }
+            else
+            {
+                $('.contactNumberSection').show();
+            }
+
+            $('#matchConfirmed').on('click', function () {
+                $('.contactNumberSection').show();
+                hideMatchConfirmationSection();
+            })
+
+            $('#matchRejected').on('click', function () {
+                hideMatchConfirmationSection();
+            })
+
+            function hideMatchConfirmationSection() {
+                $('.matchConfirmationSection').hide();
+            }
         })
     </script>
 }
