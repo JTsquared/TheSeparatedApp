@@ -34,7 +34,10 @@ namespace LostFamily
             //services.AddSingleton<IMobileHelper, MobileHelper>();
             services.AddSingleton<IVapidSettings, VapidSettings>();
             services.Configure<VapidSettings>(Configuration.GetSection("VAPID"));
-            
+
+            services.AddSingleton<SmtpSettings>();
+            services.Configure<SmtpSettings>(Configuration.GetSection("SMTPServer"));
+
             services.AddSingleton<IPushSubscription, PushNotification>();
 
             //services.AddSingleton<IPushNotificationService>();
@@ -55,7 +58,7 @@ namespace LostFamily
             //services.AddSingleton<IPushNotificationService>(serviceProvider => services.AddSingleton<PushNotificationService>());
 
             //services.Configure<MvcOptions>(options => options.Filters.Add(new RequireHttpsAttribute()));
-            
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

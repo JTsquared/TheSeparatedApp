@@ -5,5 +5,6 @@
         string Title { get; set; }
         string Message { get; set; }
         string Data { get; set; }
+        string RedirectURL { get; set; }
     }
 }

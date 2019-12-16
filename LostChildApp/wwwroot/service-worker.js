@@ -29,8 +29,8 @@
 self.addEventListener("push", event => {
     if (event.data) {
         var payload = event.data.json();
-        //var title = payload.Title;
-        var title = payload.Model.DependentName;
+        var title = payload.Title;
+        //var title = payload.Model.DependentName;
         var icon = '/images/android-chrome-192x192.png';
         var tag = 'simple-push-demo-notification-tag';
         //var tag = payload.Data;

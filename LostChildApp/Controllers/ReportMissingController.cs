@@ -16,15 +16,13 @@ namespace LostChildApp.Controllers
         private readonly IHostingEnvironment hostingEnvironment;
         private readonly IMessageRepository mq;
         private readonly IImageService imageService;
-        //private readonly IMobileHelper mobileHelper;
         private readonly IVapidSettings vapidSettings;
-
         private readonly IPushNotificationService pushNotificationService;
-        //private readonly IPushNotificationService pushNotificationService;
+        private readonly SmtpSettings smtpSettings;
 
         private const double SEARCH_RADIUS_IN_MILES = 5.0d;
 
-        public ReportMissingController(IHostingEnvironment hostingEnvironment, IMessageRepository mq, IImageService imageService, IOptions<VapidSettings> vapidSettings, IPushSubscription pushSubscription)//, IPushNotificationService pushNotificationService)
+        public ReportMissingController(IHostingEnvironment hostingEnvironment, IMessageRepository mq, IImageService imageService, IOptions<VapidSettings> vapidSettings, IPushSubscription pushSubscription, IOptions<SmtpSettings> smtpSettings)//, IPushNotificationService pushNotificationService)
         {
             this.hostingEnvironment = hostingEnvironment;
             this.mq = mq;
@@ -32,15 +30,16 @@ namespace LostChildApp.Controllers
             //this.mobileHelper = mobileHelper;
             this.vapidSettings = vapidSettings.Value;
             this.pushNotificationService = new PushNotificationService(this.vapidSettings, pushSubscription);
-            
+            this.smtpSettings = smtpSettings.Value;
         }
 
         public IActionResult Index()
         {
-            ReportMissingMsg missingReport = new ReportMissingMsg();
+            //ReportMissingMsg missingReport = new ReportMissingMsg();
             ViewBag.VapidPublicKey = vapidSettings.PublicKey;
 
-            return View(missingReport);
+            //return View(missingReport);
+            return View();
         }
 
         //public IActionResult Index(ReportMissingMsg model)
@@ -56,50 +55,52 @@ namespace LostChildApp.Controllers
         [HttpPost]
         public IActionResult FamilyReport(ReportMissingMsg model, IFormFile imageFile2, string useMobileLocation)
         {
-            //BEGIN TEST DATA------------------------------------------------------------------
+            ////BEGIN TEST DATA------------------------------------------------------------------
 
-            model.DependentImgURL = "IMG_20190302_121422.jpg";
-            bool test = SendMatchNotification(model, new ReportMissingMsgAdaptor(model));
+            //string smtpServer = smtpSettings.SMTPServer;
+            //string emailUsername = smtpSettings.SMTPEmailAddress;
+            //string emailPassword = smtpSettings.SMTPEmailPassword;
+            //string jwtSecret = smtpSettings.JWTSecret;
+            //INotificationService notificationService = new EmailNotificationService(smtpServer, emailUsername, emailPassword, "turner.e.jonathan@gmail.com", emailUsername, jwtSecret);
+            //string returnURL = $"{this.Request.Scheme}://{this.Request.Host}/ReportMatch/Confirm";
 
-            //END TEST DATA--------------------------------------------------------------------
 
-            //if(model.PushNotificationKey != null)
-            //{
-            //    return View("ReportMatch", new ReportMissingMsgAdaptor(model));
-            //}
-            //else
-            //{
-            //    return View("ReportAdded");
-            //}
+            //JWTTokenService temp = new JWTTokenService(smtpSettings.JWTSecret);
+            //var temp2 = JsonConvert.SerializeObject(model);
+            //var temp3 = temp.GetSecurityToken(temp2);
+            //return Redirect(returnURL + "?jwt=" + temp3);
+            ////return Redirect(returnURL + "/" + temp3);
+
+
+            //notificationService.SendReportMatchNotification(new Notification("testSubject", "testMessage", model, returnURL));
+
+            ////END TEST DATA--------------------------------------------------------------------
 
             model.Reporter.ContactType = ContactType.Family;
 
             //the reporter's mobile location is required but if the below checkbox on the post form is checked they they have given permission to send their location to the other party
             model.ShareLocation = useMobileLocation == "on" ? true : false;
+            model.DependentImgURL = imageService.SaveImageToStorage(imageFile2);
 
-            return View("ReportAdded");
+            ReportMissingMsgAdaptor matchedReport = GetMissingReportMatch(model);
 
-            //model.DependentImgURL = imageService.SaveImageToStorage(imageFile2);
-
-            //ReportMissingMsgAdaptor matchedReport = GetMissingReportMatch(model);
-
-            //if (matchedReport != null)
-            //{
-            //    bool matchNotificationSent = SendMatchNotification(model, matchedReport);
-            //    if (matchNotificationSent)
-            //    {
-            //        ViewBag.SentNotificationStatus = "Success";
-            //    }
-            //    else
-            //    {
-            //        ViewBag.SentNotificationStatus = "Failure";
-            //    }
-            //    return View("ReportMatch", matchedReport);
-            //}
-            //else
-            //{
-            //    return View("ReportAdded");
-            //}
+            if (matchedReport != null)
+            {
+                bool matchNotificationSent = SendMatchNotification(model, matchedReport);
+                if (matchNotificationSent)
+                {
+                    ViewBag.SentNotificationStatus = "Success";
+                }
+                else
+                {
+                    ViewBag.SentNotificationStatus = "Failure";
+                }
+                return View("ReportMatch", matchedReport);
+            }
+            else
+            {
+                return View("ReportAdded");
+            }
         }
 
         [HttpPost]
@@ -116,6 +117,15 @@ namespace LostChildApp.Controllers
 
             if (matchedReport != null)
             {
+                bool matchNotificationSent = SendMatchNotification(model, matchedReport);
+                if (matchNotificationSent)
+                {
+                    ViewBag.SentNotificationStatus = "Success";
+                }
+                else
+                {
+                    ViewBag.SentNotificationStatus = "Failure";
+                }
                 return View("ReportMatch", matchedReport);
             }
             else
@@ -128,10 +138,6 @@ namespace LostChildApp.Controllers
         {
             var img = imageService.GetImageFromStorage(uri);
             return File(img, "image/png");
-            //string imageBase64Data = Convert.ToBase64String(img);
-            //string imageDataURL = string.Format("data:image/png;base64,{0}", imageBase64Data);
-            //return imageDataURL;
-            //<img src="@Url.Action("GetCustIdBarCode", new { code = customer_code })" />
         }
 
         private ReportMissingMsgAdaptor GetMissingReportMatch(ReportMissingMsg model)
@@ -156,9 +162,13 @@ namespace LostChildApp.Controllers
                         {
                             //if match found, use the index of the matched report to retrieve the entire report object
                             matchedReport = possibleMatches[imageMatchIndex];
+
+                            //********************************************************************************************
                             //TODO: rather than removing the image and report immediately move this call to action within ReportMatch controller after user has confirmed match is correct.
-                            imageService.RemoveImagesFromStorage(model.DependentImgURL, matchedReport.DependentImgURL);
-                            mq.RemoveMessageFromStorage(matchedReport);
+                            //imageService.RemoveImagesFromStorage(model.DependentImgURL, matchedReport.DependentImgURL);
+                            //mq.RemoveMessageFromStorage(matchedReport);
+                            //********************************************************************************************
+
                             return matchedReport;
                         }
                     }
@@ -185,15 +195,26 @@ namespace LostChildApp.Controllers
             {
                 //TODO: after MVP consider updating reportMissing UI to give user options to select which type of notification service they prefer
                 //configure push notification service
-
-                pushNotificationService.SetVapidSettings(vapidSettings);
-                pushNotificationService.SetPushSubscription(matchedReport.ReporterEndpoint, matchedReport.ReporterKey, matchedReport.ReporterAuthSecret);
+                if (matchedReport.NotificationTypePreference == NotificationTypePreference.PushNotification.ToString())
+                {
+                    pushNotificationService.SetVapidSettings(vapidSettings);
+                    pushNotificationService.SetPushSubscription(matchedReport.ReporterEndpoint, matchedReport.ReporterKey, matchedReport.ReporterAuthSecret);
+                    notificationService = new NotificationService(pushNotificationService);
+                }
+                else
+                {
+                    string smtpServer = smtpSettings.SMTPServer;
+                    string emailUsername = smtpSettings.SMTPEmailAddress;
+                    string emailPassword = smtpSettings.SMTPEmailPassword;
+                    string jwtSecret = smtpSettings.JWTSecret;
+                    notificationService = new EmailNotificationService(smtpServer, emailUsername, emailPassword, matchedReport.ReporterEmailAddress, emailUsername, jwtSecret);
+                }
 
                 //TODO: INotificationService preferredNotificationService = NotificationServiceFactory.Create(model.PreferredNotificationServiceType);
                 //preferredNotificationService.SendReportMatchNotification(x => new { "test, model.DependentImgURL" });
 
                 //register push notification service by default
-                notificationService = new NotificationService(pushNotificationService);
+                //notificationService = new NotificationService(pushNotificationService);
 
                 //register additional notification serivce types in case push notification service fails.
                 //TODO: create additional notification service types below and have the view manage when to collect info to create these types (get permission for text and collect email address)
@@ -201,7 +222,7 @@ namespace LostChildApp.Controllers
                 //notificationService.AddNotificationService(emailNotificationService);
 
                 //notificationService iterates through each registered service type to attempt to send notification until the notification is successfully sent 
-                wasNotificationSent = notificationService.SendReportMatchNotification(new Notification("test", "test", model));
+                wasNotificationSent = notificationService.SendReportMatchNotification(new Notification("We found a match!", "Please click the link to view the report and confirm the match", model, $"{this.Request.Scheme}://{this.Request.Host}/ReportMatch/Confirm?jwt="));
             }
             catch(Exception e)
             {
@@ -210,6 +231,16 @@ namespace LostChildApp.Controllers
 
             return wasNotificationSent;
         }
+
+        //[Route("")]
+        //public IActionResult ReportMatch(string notificationTag)
+        //{
+        //    ReportMissingMsg model = null;
+        //    //var decodedModel = WebUtility.UrlDecode(notificationTag);
+        //    //model = JsonConvert.DeserializeObject<ReportMissingMsg>(decodedModel);
+        //    model = JsonConvert.DeserializeObject<ReportMissingMsg>(notificationTag);
+        //    return View("ReportMatch", new ReportMissingMsgAdaptor(model));
+        //}
 
         public IActionResult ReportMatch(string notificationTag)
         {

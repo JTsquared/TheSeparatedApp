@@ -46,13 +46,14 @@
             </div>
             @using (Html.BeginForm("NonFamilyReport", "ReportMissing", FormMethod.Post, new { enctype = "multipart/form-data" }))
             {
+                @Html.ValidationSummary()
                 <div class="bg-light">
                     <div class="row bg-light">
                         <div class="col-lg-2 col-md-3">
                             <label for="image">Upload Picture</label>
                             <div class="mb-4">
                                 <!--<input asp-for="DependentImage" class="uploadImg" id="imageFile" style="display: none;" type="file" name="imageFile" accept="image/*" required />-->
-                                <input class="uploadImg" id="imageFile" style="display: none;" type="file" name="imageFile" accept="image/*" required />
+                                <input class="uploadImg" id="imageFile" style="display: none;" type="file" name="imageFile" accept="image/*" required="required" />
                                 <a id="image" class="fa fa-arrow-circle-up fa-8x img-thumbnail" onclick="UploadImage()"></a>
                             </div>
                         </div>
@@ -68,6 +69,7 @@
                             <div class="form-group">
                                 <label asp-for="Reporter.PhoneNumber">Your Phone Number*</label>
                                 <input asp-for="Reporter.PhoneNumber" type="tel" class="form-control" id="reporterPhone" />
+                                <span asp-validation-for="Reporter.PhoneNumber"></span>
                             </div>
                             <div class="form-group">
                                 <label asp-for="DependentName">Child/Dependent's Name (Optional)</label>
@@ -76,6 +78,19 @@
                             <div class="form-group">
                                 <label asp-for="Reporter.Name" for="name">Your Name (Optional)</label>
                                 <input asp-for="Reporter.Name" type="text" class="form-control" id="reporterName" />
+                                <span asp-validation-for="Reporter.Name"></span>
+                            </div>
+                            <div class="form-group notificationPref">
+                                <label>How would you like to be notified?</label><br />
+
+                                <select class="form-control-md" asp-for="Reporter.NotificationTypePreference">
+                                    <option class="dropdown-item pushOption" value="1">Push Notification</option>
+                                    <option class="dropdown-item" value="2">Email</option>
+                                </select>
+                            </div>
+                            <div class="form-group emailFormControl" hidden>
+                                <label asp-for="Reporter.Email">Email Address*</label>
+                                <input asp-for="Reporter.Email" class="form-control emailControl" type="text" />
                             </div>
                             <div class="form-group">
                                 <label for="useMobileLocation" class="form-check-label">Do we have permission to send your location to the family member of the lost dependent?</label>
@@ -85,8 +100,8 @@
                             </div>
                             <div class="form-group">
                                 <input asp-for="PushNotificationKey" type="hidden" class="pushKey" id="pushKey" />
-                                    <input asp-for="PushNotificationEndpoint" type="hidden" class="pushEndpoint" id="pushEndpoint" />
-                                    <input asp-for="PushNotificationAuthSecret" type="hidden" class="pushAuthSecret" id="pushAuthSecret" />
+                                <input asp-for="PushNotificationEndpoint" type="hidden" class="pushEndpoint" id="pushEndpoint" />
+                                <input asp-for="PushNotificationAuthSecret" type="hidden" class="pushAuthSecret" id="pushAuthSecret" />
                             </div>
                             <button type="submit" class="btn px-5 color-dark-purple my-4">Submit</button>
                         </div>
@@ -103,6 +118,7 @@
             </div>
             @using (Html.BeginForm("FamilyReport", "ReportMissing", FormMethod.Post, new { enctype = "multipart/form-data" }))
             {
+                @Html.ValidationSummary()
                 <div class="bg-light">
                     <div class="row bg-light">
                         <div class="col-lg-2 col-md-3">
@@ -132,6 +148,17 @@
                             <div class="form-group">
                                 <label asp-for="Reporter.Name">Your Name (Optional)</label>
                                 <input asp-for="Reporter.Name" type="text" class="form-control" id="reporterName" />
+                            </div>
+                            <div class="form-group notificationPref2">
+                                <label>How would you like to be notified?</label><br />
+                                <select class="form-control-md" asp-for="Reporter.NotificationTypePreference">
+                                    <option class="dropdown-item pushOption" value="1">Push Notification</option>
+                                    <option class="dropdown-item" value="2">Email</option>
+                                </select>
+                            </div>
+                            <div class="form-group emailFormControl2" hidden>
+                                <label asp-for="Reporter.Email">Email Address*</label>
+                                <input asp-for="Reporter.Email" class="form-control emailControl2" type="text" />
                             </div>
                             <div class="form-group">
                                 <label for="useMobileLocation" class="form-check-label">Do we have permission to send your location to the person who finds your lost dependent?</label>
@@ -198,13 +225,13 @@
 
                 if (pushIsSupported) {
                     //TODO: rather than use alerts come up with another process
-                    alert("push is supported");
+                    //alert("push is supported");
                 }
                 else {
-                    alert("push is NOT supported");
+                    //alert("push is NOT supported");
                 }
 
-                alert(navigator.serviceWorker.ready);
+                //alert(navigator.serviceWorker.ready);
 
                 navigator.serviceWorker.ready.then(ServiceWorkerRegistration => {
                     ServiceWorkerRegistration.pushManager.getSubscription()
@@ -223,7 +250,7 @@
                                 const authSecret = rawAuthSecret ? btoa(String.fromCharCode.apply(null, new Uint8Array(rawAuthSecret))) : '';
                                 const endpoint = PushSubscription.endpoint;
 
-                                alert('already subscribed: ' + key + ', authSecret=' + authSecret + ', endpoint=' + endpoint);
+                                //alert('already subscribed: ' + key + ', authSecret=' + authSecret + ', endpoint=' + endpoint);
 
                                 $('#pushKey')[0].value = key;
                                 $('#pushKey2')[0].value = key;
@@ -244,7 +271,7 @@
                                 const authSecret = rawAuthSecret ? btoa(String.fromCharCode.apply(null, new Uint8Array(rawAuthSecret))) : '';
                                 const endpoint = PushSubscription.endpoint;
 
-                                alert('new subscription: key=' + key + ', authSecret=' + authSecret + ', endpoint=' + endpoint);
+                                //alert('new subscription: key=' + key + ', authSecret=' + authSecret + ', endpoint=' + endpoint);
 
                                 $('#pushKey')[0].value = key;
                                 $('#pushKey2')[0].value = key;
@@ -306,6 +333,44 @@
 
                 reader.readAsDataURL(file);
             })
+
+            $('.notificationPref').change(function () {
+                if ($('.notificationPref select').val() === '2') {
+                    $('.emailFormControl').removeAttr('hidden');
+                    $('.emailFormControl').show();
+                    $('.emailControl').attr('required', 'required');
+                }
+                else {
+                    $('.emailControl').removeAttr('required');
+                    $('.emailFormControl').hide();
+                }
+            })
+
+            $('.notificationPref2').change(function () {
+                if ($('.notificationPref2 select').val() === '2') {
+                    $('.emailFormControl2').removeAttr('hidden');
+                    $('.emailFormControl2').show();
+                    $('.emailControl2').attr('required', 'required');
+                }
+                else {
+                    $('.emailControl2').removeAttr('required');
+                    $('.emailFormControl2').hide();
+                }
+            })
+
+        })
+    </script>
+
+    <script>
+        $(document).ready(function () {
+
+            //if ios device disable option for push notifications. ios devices do not support them from unregistered pwa apps
+            var ios = !!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform);
+
+            if (ios) {
+                $('.pushOption').attr('disabled', 'disabled');
+            }
+
         })
     </script>
 }
