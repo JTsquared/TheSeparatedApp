@@ -52,9 +52,10 @@
                         <div class="col-lg-2 col-md-3">
                             <label for="image">Upload Picture</label>
                             <div class="mb-4">
-                                <!--<input asp-for="DependentImage" class="uploadImg" id="imageFile" style="display: none;" type="file" name="imageFile" accept="image/*" required />-->
-                                <input class="uploadImg" id="imageFile" style="display: none;" type="file" name="imageFile" accept="image/*" required="required" />
+                                @*<input asp-for="DependentImage" class="uploadImg" id="imageFile" style="display: none;" type="file" name="imageFile" accept="image/*" required="required" />*@
+                                <input asp-for="DependentImage" class="uploadImg" id="imageFile" style="display: none;" type="file" accept="image/*" />
                                 <a id="image" class="fa fa-arrow-circle-up fa-8x img-thumbnail" onclick="UploadImage()"></a>
+                                <span asp-validation-for="DependentImage"></span>
                             </div>
                         </div>
                         <div class="col-md-2">
@@ -78,7 +79,6 @@
                             <div class="form-group">
                                 <label asp-for="Reporter.Name" for="name">Your Name (Optional)</label>
                                 <input asp-for="Reporter.Name" type="text" class="form-control" id="reporterName" />
-                                <span asp-validation-for="Reporter.Name"></span>
                             </div>
                             <div class="form-group notificationPref">
                                 <label>How would you like to be notified?</label><br />
@@ -124,8 +124,9 @@
                         <div class="col-lg-2 col-md-3">
                             <label for="image">Upload Picture</label>
                             <div class="mb-4">
-                                <input class="uploadImg2" id="reportUploadImg2" style="display: none;" type="file" name="imageFile2" accept="image/*" required />
+                                <input asp-for="DependentImage" class="uploadImg2" id="reportUploadImg2" hidden type="file" accept="image/*" />
                                 <a id="image" class="fa fa-arrow-circle-up fa-8x img-thumbnail" onclick="UploadImage2()"></a>
+                                <span asp-validation-for="DependentImage"></span>
                             </div>
                         </div>
                         <div class="col-md-2">
@@ -140,6 +141,7 @@
                             <div class="form-group">
                                 <label asp-for="Reporter.PhoneNumber">Your Phone Number*</label>
                                 <input asp-for="Reporter.PhoneNumber" type="tel" class="form-control" id="dependentsName" />
+                                <span asp-validation-for="Reporter.PhoneNumber"></span>
                             </div>
                             <div class="form-group">
                                 <label asp-for="DependentName">Child/Dependent's Name (Optional)</label>
@@ -148,6 +150,7 @@
                             <div class="form-group">
                                 <label asp-for="Reporter.Name">Your Name (Optional)</label>
                                 <input asp-for="Reporter.Name" type="text" class="form-control" id="reporterName" />
+                                <span asp-validation-for="Reporter.Name"></span>
                             </div>
                             <div class="form-group notificationPref2">
                                 <label>How would you like to be notified?</label><br />
@@ -369,6 +372,12 @@
 
             if (ios) {
                 $('.pushOption').attr('disabled', 'disabled');
+                $('.emailFormControl').removeAttr('hidden');
+                $('.emailFormControl').show();
+                $('.emailControl').attr('required', 'required');
+                $('.emailFormControl2').removeAttr('hidden');
+                $('.emailFormControl2').show();
+                $('.emailControl2').attr('required', 'required');
             }
 
         })

@@ -55,6 +55,38 @@ namespace LostChildApp.Controllers
         [HttpPost]
         public IActionResult FamilyReport(ReportMissingMsg model, IFormFile imageFile2, string useMobileLocation)
         {
+            if (ModelState.IsValid)
+            {
+                model.Reporter.ContactType = ContactType.Family;
+
+                //the reporter's mobile location is required but if the below checkbox on the post form is checked they they have given permission to send their location to the other party
+                model.ShareLocation = useMobileLocation == "on" ? true : false;
+                model.DependentImgURL = imageService.SaveImageToStorage(imageFile2);
+
+                ReportMissingMsgAdaptor matchedReport = GetMissingReportMatch(model);
+
+                if (matchedReport != null)
+                {
+                    bool matchNotificationSent = SendMatchNotification(model, matchedReport);
+                    if (matchNotificationSent)
+                    {
+                        ViewBag.SentNotificationStatus = "Success";
+                    }
+                    else
+                    {
+                        ViewBag.SentNotificationStatus = "Failure";
+                    }
+                    return View("ReportMatch", matchedReport);
+                }
+                else
+                {
+                    return View("ReportAdded");
+                }
+            }
+            else
+            {
+                return View("Index");
+            }
             ////BEGIN TEST DATA------------------------------------------------------------------
 
             //string smtpServer = smtpSettings.SMTPServer;
@@ -75,32 +107,6 @@ namespace LostChildApp.Controllers
             //notificationService.SendReportMatchNotification(new Notification("testSubject", "testMessage", model, returnURL));
 
             ////END TEST DATA--------------------------------------------------------------------
-
-            model.Reporter.ContactType = ContactType.Family;
-
-            //the reporter's mobile location is required but if the below checkbox on the post form is checked they they have given permission to send their location to the other party
-            model.ShareLocation = useMobileLocation == "on" ? true : false;
-            model.DependentImgURL = imageService.SaveImageToStorage(imageFile2);
-
-            ReportMissingMsgAdaptor matchedReport = GetMissingReportMatch(model);
-
-            if (matchedReport != null)
-            {
-                bool matchNotificationSent = SendMatchNotification(model, matchedReport);
-                if (matchNotificationSent)
-                {
-                    ViewBag.SentNotificationStatus = "Success";
-                }
-                else
-                {
-                    ViewBag.SentNotificationStatus = "Failure";
-                }
-                return View("ReportMatch", matchedReport);
-            }
-            else
-            {
-                return View("ReportAdded");
-            }
         }
 
         [HttpPost]

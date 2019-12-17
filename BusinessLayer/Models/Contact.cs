@@ -11,7 +11,6 @@ namespace BusinessLayer.Models
 
     public class Contact : IContact
     {
-        [Required]
         public string Name { get; set; }
         [Required(ErrorMessage = "You must enter a telphone number")]
         [DataType(DataType.PhoneNumber)]

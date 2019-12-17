@@ -7,8 +7,8 @@ namespace BusinessLayer.Models
     public class ReportMissingMsg
     {
         public string DependentName { get; set; }
-        //public IFormFile DependentImage { get; set; }
-        [Required(ErrorMessage = "You must provide an image of the dependent")]
+        [Required(ErrorMessage ="You must provide a picture of the dependent")]
+        public IFormFile DependentImage { get; set; }
         public string DependentImgURL { get; set; }
         [Required]
         public Contact Reporter { get; set; }
