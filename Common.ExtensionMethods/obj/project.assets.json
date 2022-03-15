@@ -14251,22 +14251,25 @@
   },
   "packageFolders": {
     "C:\\Users\\blue_\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {},
     "D:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Users\\Jon\\Projects\\Visual Studio Projects\\LostChildApp\\LostChildApp\\Common.ExtensionMethods\\Common.ExtensionMethods.csproj",
+      "projectUniqueName": "D:\\Users\\Jon\\Projects\\VisualStudioProjects\\TheSeparateAppPUBLIC\\Common.ExtensionMethods\\Common.ExtensionMethods.csproj",
       "projectName": "Common.ExtensionMethods",
-      "projectPath": "D:\\Users\\Jon\\Projects\\Visual Studio Projects\\LostChildApp\\LostChildApp\\Common.ExtensionMethods\\Common.ExtensionMethods.csproj",
+      "projectPath": "D:\\Users\\Jon\\Projects\\VisualStudioProjects\\TheSeparateAppPUBLIC\\Common.ExtensionMethods\\Common.ExtensionMethods.csproj",
       "packagesPath": "C:\\Users\\blue_\\.nuget\\packages\\",
-      "outputPath": "D:\\Users\\Jon\\Projects\\Visual Studio Projects\\LostChildApp\\LostChildApp\\Common.ExtensionMethods\\obj\\",
+      "outputPath": "D:\\Users\\Jon\\Projects\\VisualStudioProjects\\TheSeparateAppPUBLIC\\Common.ExtensionMethods\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
         "D:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
         "C:\\Users\\blue_\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -14278,6 +14281,7 @@
       },
       "frameworks": {
         "netcoreapp2.2": {
+          "targetAlias": "netcoreapp2.2",
           "projectReferences": {}
         }
       },
@@ -14289,6 +14293,7 @@
     },
     "frameworks": {
       "netcoreapp2.2": {
+        "targetAlias": "netcoreapp2.2",
         "dependencies": {
           "Microsoft.AspNetCore.All": {
             "suppressParent": "All",
@@ -14308,10 +14313,16 @@
           }
         },
         "imports": [
-          "net461"
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48"
         ],
         "assetTargetFallback": true,
-        "warn": true
+        "warn": true,
+        "runtimeIdentifierGraphPath": "D:\\Program Files\\dotnet\\sdk\\5.0.201\\RuntimeIdentifierGraph.json"
       }
     }
   }
